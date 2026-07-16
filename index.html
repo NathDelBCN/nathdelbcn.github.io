@@ -500,6 +500,27 @@
         // Ce code récupère l'année en cours sur l'ordinateur du visiteur (2026)
         document.getElementById('year').textContent = new Date().getFullYear();
         </script>
+        <!-- ========================================== -->
+        <!-- LE BLOC HTML DE LA BANNIÈRE (OBLIGATOIRE !) -->
+        <!-- ========================================== -->
+        <div id="cookie-banner" class="cookie-banner" style="display: none;">
+            <div class="cookie-content">
+                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. Conformément aux règles européennes (RGPD), vous pouvez accepter ou refuser leur utilisation.</p>
+                <div class="cookie-buttons">
+                    <!-- Bouton Refuser (style contour blanc) -->
+                    <button id="decline-cookies" class="btn btn-outline-light btn-sm mr-2 text-white">Refuser</button>
+                    <!-- Bouton Accepter (style plein blanc) -->
+                    <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Zone pour le menu Google Translate (caché par défaut) -->
+        <div id="google_translate_element" style="display: none;"></div>
+        
+        <!-- ========================================== -->
+        <!--            LE SCRIPT JAVASCRIPT            -->
+        <!-- ========================================== -->
         <script>
           const GA_TRACKING_ID = 'G-92GKHEX3C2';
         
@@ -550,11 +571,9 @@
               gtag('config', GA_TRACKING_ID);
         
               // --- B. Chargement de Google Translate ---
-              // On affiche l'élément du menu Google Translate
               const translateDiv = document.getElementById("google_translate_element");
               if (translateDiv) translateDiv.style.display = "block";
         
-              // On configure l'initialisation du widget Google
               window.googleTranslateElementInit = function() {
                   new google.translate.TranslateElement({
                       pageLanguage: 'fr',
@@ -564,7 +583,6 @@
                   }, 'google_translate_element');
               };
           
-              // On injecte dynamiquement le script de Google Translate
               const gtScript = document.createElement('script');
               gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
               document.head.appendChild(gtScript);
@@ -605,13 +623,12 @@
               if (cookieConsent === null) {
                   // A. Premier passage : on affiche la bannière
                   banner.style.display = "block";
-                  // Par sécurité et confort visuel, on traduit localement en attendant son choix
                   translateLocally();
               } else if (cookieConsent === "true") {
-                  // B. Déjà accepté : on lance tous les services Google (Analytics + Translate)
+                  // B. Déjà accepté : on lance tous les services Google
                   loadGoogleServices();
               } else {
-                  // C. Déjà refusé : pas de Google ! On applique uniquement la traduction locale
+                  // C. Déjà refusé : uniquement la traduction locale
                   translateLocally();
               }
           
@@ -619,14 +636,14 @@
               acceptBtn.addEventListener("click", function() {
                   setCookie("cookies_accepted", "true", 365);
                   banner.style.display = "none";
-                  loadGoogleServices(); // Lance le tracking et le vrai traducteur Google
+                  loadGoogleServices();
               });
           
               // Clic sur Refuser
               declineBtn.addEventListener("click", function() {
                   setCookie("cookies_accepted", "false", 365);
                   banner.style.display = "none";
-                  translateLocally(); // Reste sur la traduction locale sécurisée
+                  translateLocally();
               });
           });
         </script>
