@@ -503,8 +503,13 @@
         <!-- Bannière de Cookies RGPD -->
         <div id="cookie-banner" class="cookie-banner">
             <div class="cookie-content">
-                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. En cliquant sur "Accepter", vous consentez à leur utilisation conformément aux règles européennes (RGPD).</p>
-                <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
+                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. Conformément aux règles européennes (RGPD), vous pouvez accepter ou refuser leur utilisation.</p>
+                <div class="cookie-buttons">
+                    <!-- Bouton Refuser (style contour blanc) -->
+                    <button id="decline-cookies" class="btn btn-outline-light btn-sm mr-2 text-white">Refuser</button>
+                    <!-- Bouton Accepter (style plein blanc) -->
+                    <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
+                </div>
             </div>
         </div>
         
@@ -560,28 +565,43 @@
           document.addEventListener("DOMContentLoaded", function() {
               const banner = document.getElementById("cookie-banner");
               const acceptBtn = document.getElementById("accept-cookies");
+              const declineBtn = document.getElementById("decline-cookies"); // Récupération du bouton Refuser
         
-              // Étape A : On vérifie si l'utilisateur a déjà accepté par le passé
-              const hasAccepted = getCookie("cookies_accepted");
+              // Étape A : On vérifie la valeur du cookie "cookies_accepted" (peut être "true", "false" ou null)
+              const cookieConsent = getCookie("cookies_accepted");
         
-              // Étape B : Si le cookie n'existe pas, on affiche la bannière
-              if (!hasAccepted) {
+              // Étape B : On applique la bonne logique selon la réponse
+              if (cookieConsent === null) {
+                  // L'utilisateur n'a pas encore fait de choix -> on montre la bannière
                   banner.style.display = "block";
-              } else {
-                  // S'il a déjà accepté, on charge directement Google Analytics !
+              } else if (cookieConsent === "true") {
+                  // L'utilisateur a déjà accepté -> on charge Google Analytics directement
                   loadGoogleAnalytics();
               }
+              // Si cookieConsent === "false", on laisse la bannière masquée et on ne charge PAS Google Analytics.
           
-              // Étape C : Quand on clique sur le bouton "Accepter"
+              // Étape C-1 : Quand on clique sur le bouton "Accepter"
               acceptBtn.addEventListener("click", function() {
-                  // 1. On crée le cookie de consentement pour 365 jours (1 an)
+                  // 1. On crée le cookie à "true" pour 365 jours (1 an)
                   setCookie("cookies_accepted", "true", 365);
             
                   // 2. On masque la bannière immédiatement
                   banner.style.display = "none";
             
-                  // 3. On déclenche enfin le script de suivi Google Analytics de manière légale
+                  // 3. On déclenche le script de suivi Google Analytics
                   loadGoogleAnalytics();
+              });
+          
+              // Étape C-2 : Quand on clique sur le bouton "Refuser"
+              declineBtn.addEventListener("click", function() {
+                  // 1. On crée le cookie à "false" pour 365 jours pour se souvenir de son refus
+                  setCookie("cookies_accepted", "false", 365);
+            
+                  // 2. On masque la bannière immédiatement
+                  banner.style.display = "none";
+            
+                  // 3. Google Analytics n'est PAS chargé.
+                  console.log("Cookies refusés. Google Analytics bloqué.");
               });
           });
         </script>
