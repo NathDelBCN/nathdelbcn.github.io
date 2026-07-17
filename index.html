@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title data-key="tab_title">Freelancer - Start Bootstrap Theme</title>
+        <title>Freelancer - Start Bootstrap Theme</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -15,46 +15,6 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <style>
-          /* Style de la bannière fixe */
-          .cookie-banner {
-              position: fixed;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              background-color: #1a252f; /* Couleur sombre qui va bien avec le thème Freelancer */
-              color: white;
-              padding: 15px 20px;
-              box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
-              z-index: 9999; /* Pour qu'elle passe au-dessus de tout le contenu */
-              display: none; /* Masquée par défaut, JS l'affichera si besoin */
-              transition: all 0.3s ease-in-out;
-          }
-
-          /* Alignement du contenu */
-          .cookie-content {
-              max-width: 1140px;
-              margin: 0 auto;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              flex-wrap: wrap;
-              gap: 15px;
-          }
-
-          .cookie-content p {
-              margin: 0;
-              font-size: 0.9rem;
-              flex: 1;
-              min-width: 250px;
-          }
-      
-          .cookie-content button {
-              border-radius: 5px;
-              padding: 8px 20px;
-              cursor: pointer;
-          }
-        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -292,7 +252,9 @@
         </footer>
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Nathaël <span id="year"></span></small></div>
+            <div class="container">
+                <small>Copyright &copy; Your Website <span id="year">2026</span></small>
+            </div>
         </div>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
@@ -496,73 +458,57 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-        <script>
-        // Ce code récupère l'année en cours sur l'ordinateur du visiteur (2026)
-        document.getElementById('year').textContent = new Date().getFullYear();
-        </script>
         <!-- ========================================== -->
-        <!-- LE BLOC HTML DE LA BANNIÈRE (OBLIGATOIRE !) -->
+        <!-- LE BLOC HTML DE LA BANNIÈRE AVEC OPTIONS   -->
         <!-- ========================================== -->
         <div id="cookie-banner" class="cookie-banner" style="display: none;">
             <div class="cookie-content">
-                <p>🍪 <strong>Respect de la vie privée :</strong> Ce site utilise des cookies pour personnaliser votre expérience et analyser le trafic. Conformément aux règles européennes (RGPD), vous pouvez accepter ou refuser leur utilisation.</p>
+                <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide optional translation services. You can customize your choices below before continuing in English.</p>
+            
+                <!-- Panneau des paramètres (Granularité RGPD) -->
+                <div id="cookie-settings" class="mb-3 text-left" style="font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="consent-analytics" checked>
+                        <label class="form-check-label text-white" for="consent-analytics">
+                             📊 Google Analytics (Traffic analysis)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="consent-translate">
+                        <label class="form-check-label text-white" for="consent-translate">
+                             🌐 Google Translate (Optional automatic translation)
+                        </label>
+                    </div>
+                </div>
+            
                 <div class="cookie-buttons">
-                    <!-- Bouton Refuser (style contour blanc) -->
-                    <button id="decline-cookies" class="btn btn-outline-light btn-sm mr-2 text-white">Refuser</button>
-                    <!-- Bouton Accepter (style plein blanc) -->
-                    <button id="accept-cookies" class="btn btn-light btn-sm text-dark font-weight-bold">Accepter</button>
+                    <!-- Bouton pour enregistrer la sélection personnalisée -->
+                    <button id="save-settings" class="btn btn-outline-light btn-sm mr-2 text-white">Save Settings</button>
+                    <!-- Bouton pour tout accepter d'un coup -->
+                    <button id="accept-all" class="btn btn-light btn-sm text-dark font-weight-bold">Accept All</button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Zone pour le menu Google Translate (caché par défaut) -->
         <div id="google_translate_element" style="display: none;"></div>
-        
+
         <!-- ========================================== -->
         <!--            LE SCRIPT JAVASCRIPT            -->
         <!-- ========================================== -->
         <script>
-          const GA_TRACKING_ID = 'G-92GKHEX3C2';
-        
-          // 1. Notre dictionnaire local sécurisé (Sans cookies / RGPD Friendly)
-          const localTranslations = {
-              fr: {
-                  tab_title: "Nathaël FR",
-                  welcome_title: "Bienvenue sur mon Portfolio",
-                  welcome_desc: "Je suis un futur expert en cybersécurité."
-              },
-              es: {
-                  tab_title: "Nathaël ES",
-                  welcome_title: "Bienvenido a mi Portafolio",
-                  welcome_desc: "Soy un futuro experto en ciberseguridad."
-              },
-              en: {
-                  tab_title: "Nathaël EN",
-                  welcome_title: "Welcome to my Portfolio",
-                  welcome_desc: "I am a future cybersecurity expert."
-              }
-          };
-      
-          // 2. Fonction de traduction locale (Exécutée si refus des cookies)
-          function translateLocally() {
-              const userLang = navigator.language.slice(0, 2); // Détecte la langue du navigateur (ex: "es")
-              const selectedLang = localTranslations[userLang] ? userLang : 'fr'; // Français par défaut si non géré
-        
-              document.querySelectorAll('[data-key]').forEach(element => {
-                  const key = element.getAttribute('data-key');
-                  if (localTranslations[selectedLang][key]) {
-                      element.innerHTML = localTranslations[selectedLang][key];
-                  }
-              });
-              document.documentElement.lang = selectedLang;
-              console.log("Traduction locale appliquée (RGPD respecté, aucun tracker Google).");
+          // --- CODE DE L'ANNÉE DYNAMIQUE (Intégré proprement) ---
+          const yearElement = document.getElementById('year');
+          if (yearElement) {
+              yearElement.textContent = new Date().getFullYear();
           }
       
-          // 3. Fonction pour charger Google Analytics ET Google Translate (Exécutée UNIQUEMENT si acceptation)
-          function loadGoogleServices() {
-              if (window.gtag) return; // Évite les doublons
+          const GA_TRACKING_ID = 'G-92GKHEX3C2';
+      
+          // 1. Chargement de Google Analytics si accepté
+          function loadGoogleAnalytics() {
+              if (window.gtag) return;
         
-              // --- A. Chargement de Google Analytics ---
               const gaScript = document.createElement('script');
               gaScript.async = true;
               gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_TRACKING_ID;
@@ -573,14 +519,19 @@
               gtag('js', new Date());
               gtag('config', GA_TRACKING_ID);
         
-              // --- B. Chargement de Google Translate ---
+              console.log("Google Analytics activé légalement !");
+          }
+      
+          // 2. Chargement de Google Translate si accepté
+          function loadGoogleTranslate() {
+              if (window.googleTranslateElementInit) return;
+        
               const translateDiv = document.getElementById("google_translate_element");
               if (translateDiv) translateDiv.style.display = "block";
         
               window.googleTranslateElementInit = function() {
                   new google.translate.TranslateElement({
-                      pageLanguage: 'fr',
-                      includedLanguages: 'en,es,fr',
+                      pageLanguage: 'en',
                       layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                       autoDisplay: true
                   }, 'google_translate_element');
@@ -590,10 +541,10 @@
               gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
               document.head.appendChild(gtScript);
           
-              console.log("Google Analytics et Google Translate chargés légalement suite au consentement !");
+              console.log("Google Translate activé légalement !");
           }
       
-          // Fonctions de gestion des cookies
+          // Fonctions de cookies
           function setCookie(name, value, days) {
               let expires = "";
               if (days) {
@@ -615,38 +566,41 @@
               return null;
           }
       
-          // 4. Logique d'initialisation de la bannière
+          // 3. Logique de la bannière
           document.addEventListener("DOMContentLoaded", function() {
               const banner = document.getElementById("cookie-banner");
-              const acceptBtn = document.getElementById("accept-cookies");
-              const declineBtn = document.getElementById("decline-cookies");
+              const saveBtn = document.getElementById("save-settings");
+              const acceptAllBtn = document.getElementById("accept-all");
         
-              const cookieConsent = getCookie("cookies_accepted");
+              const consentAnalytics = getCookie("consent_analytics");
+              const consentTranslate = getCookie("consent_translate");
         
-              if (cookieConsent === null) {
-                  // A. Premier passage : on affiche la bannière
+              if (consentAnalytics === null && consentTranslate === null) {
                   banner.style.display = "block";
-                  translateLocally();
-              } else if (cookieConsent === "true") {
-                  // B. Déjà accepté : on lance tous les services Google
-                  loadGoogleServices();
               } else {
-                  // C. Déjà refusé : uniquement la traduction locale
-                  translateLocally();
+                  if (consentAnalytics === "true") loadGoogleAnalytics();
+                  if (consentTranslate === "true") loadGoogleTranslate();
               }
           
-              // Clic sur Accepter
-              acceptBtn.addEventListener("click", function() {
-                  setCookie("cookies_accepted", "true", 365);
+              acceptAllBtn.addEventListener("click", function() {
+                  setCookie("consent_analytics", "true", 365);
+                  setCookie("consent_translate", "true", 365);
                   banner.style.display = "none";
-                  loadGoogleServices();
+                  loadGoogleAnalytics();
+                  loadGoogleTranslate();
               });
           
-              // Clic sur Refuser
-              declineBtn.addEventListener("click", function() {
-                  setCookie("cookies_accepted", "false", 365);
+              saveBtn.addEventListener("click", function() {
+                  const analyticsChecked = document.getElementById("consent-analytics").checked;
+                  const translateChecked = document.getElementById("consent-translate").checked;
+            
+                  setCookie("consent_analytics", analyticsChecked ? "true" : "false", 365);
+                  setCookie("consent_translate", translateChecked ? "true" : "false", 365);
+            
                   banner.style.display = "none";
-                  translateLocally();
+            
+                  if (analyticsChecked) loadGoogleAnalytics();
+                  if (translateChecked) loadGoogleTranslate();
               });
           });
         </script>
