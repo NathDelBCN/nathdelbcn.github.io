@@ -525,15 +525,19 @@
           // 2. Chargement de Google Translate si accepté
           function loadGoogleTranslate() {
               if (window.googleTranslateElementInit) return;
-        
+          
+              // Force l'affichage de la zone du widget
               const translateDiv = document.getElementById("google_translate_element");
-              if (translateDiv) translateDiv.style.display = "block";
-        
+              if (translateDiv) {
+                  translateDiv.style.display = "block";
+                  translateDiv.style.margin = "10px text-center"; // Pour qu'il soit bien visible
+              }
+          
               window.googleTranslateElementInit = function() {
                   new google.translate.TranslateElement({
-                      pageLanguage: 'en',
+                      pageLanguage: 'en', // Ton site est maintenant en anglais par défaut !
                       layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                      autoDisplay: true
+                      autoDisplay: true // Tente de traduire automatiquement
                   }, 'google_translate_element');
               };
           
