@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Portfolio Nathaël</title>
+        <meta name="description" content="Personal portfolio of Nathaël, student and web developer." />
+        <meta name="author" content="Nathaël" />
+        <!-- Nom de la page sécurisé par défaut (sans le nom de famille) -->
+        <title id="page-title">Portfolio Nathaël</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -20,7 +21,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top">Portfolio Nathaël Delmas</a>
+                <a class="navbar-brand" href="#page-top">Portfolio Nathaël <span id="nav-lastname"></span></a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -30,18 +31,23 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+                        <!-- Bouton de connexion ouvrant la boîte de dialogue -->
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded text-warning fw-bold" href="#!" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-trigger">🔒 Login</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
                 <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." />
-                <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">
-                    Portfolio <span class="d-block">Nathaël Delmas</span>
+                <!-- Masthead Heading (Nom de famille injecté en JS) -->
+                <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3;">
+                    Portfolio <span class="d-block">Nathaël <span id="private-lastname"></span></span>
                 </h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
@@ -53,6 +59,7 @@
                 <p class="masthead-subheading font-weight-light mb-0" id="student-info">Chargement des informations...</p>
             </div>
         </header>
+        
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
@@ -162,31 +169,38 @@
                 </div>
             </div>
         </section>
+        
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">
                 <!-- About Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-white">About Me</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- About Section Content-->
-                <div class="row">
-                    <div class="col-lg-4 ms-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                    <div class="col-lg-4 me-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+                <!-- About Section Content -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <p class="lead">
+                            Hi! I'm Nathaël, a <span id="about-age"></span>-year-old student passionate about programming and web development. 
+                            This portfolio showcases my personal projects, skills, and coding journey. 
+                            Feel free to explore my work and contact me if you want to collaborate!
+                        </p>
+                    </div>
                 </div>
-                <!-- About Section Button-->
+                <!-- About Section Button (Désactivé et sécurisé par défaut) -->
                 <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        <i class="fas fa-download me-2"></i>
-                        Free Download!
+                    <a id="cv-button" class="btn btn-xl btn-outline-light disabled" href="#!" style="pointer-events: none; opacity: 0.5;">
+                        <i class="fas fa-lock me-2"></i>
+                        Download CV (Protected)
                     </a>
                 </div>
             </div>
         </section>
+        
         <!-- Contact Section-->
         <section class="page-section" id="contact">
             <div class="container">
@@ -201,89 +215,97 @@
                 <!-- Contact Section Form-->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        
                         <!-- Formulaire connecté à Web3Forms -->
                         <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
-                            
                             <!-- 🔑 Ta clé d'accès Web3Forms -->
                             <input type="hidden" name="access_key" value="192d3153-5ce3-4036-a590-37312adb2240">
-                            
-                            <!-- Redirection après l'envoi du message (renvoie vers ton site) -->
-                            <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/">
+                            <!-- Redirection vers ton site exactement au bon format -->
+                            <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/nathaeldelmas.github.io/">
                         
-                            <!-- Name input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
                                 <label for="name">Full name</label>
                             </div>
                         
-                            <!-- Email address input (required + type="email" = obligatoire et doit être un vrai e-mail) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
                                 <label for="email">Email address</label>
                             </div>
                         
-                            <!-- Phone number input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
                                 <label for="phone">Phone number</label>
                             </div>
                         
-                            <!-- Message input (required = obligatoire) -->
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" id="message" name="message" placeholder="Enter your message here..." style="height: 10rem" required></textarea>
                                 <label for="message">Message</label>
                             </div>
                         
-                            <!-- Submit Button -->
                             <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Send</button>
                         </form>
-                    
                     </div>
                 </div>
             </div>
         </section>
+        
         <!-- Footer-->
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
-                    <!-- Footer Location-->
+                    <!-- Footer Location (Sécurisé par défaut sans aucune adresse visible dans le code) -->
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Location</h4>
-                        <p class="lead mb-0">
-                            2215 John Daniel Drive
-                            <br />
-                            Clark, MO 65243
+                        <p class="lead mb-0" id="private-address">
+                            <i class="fas fa-shield-alt text-warning mb-2"></i><br/>
+                            <em>Location protected.<br/>Please login to view.</em>
                         </p>
                     </div>
-                    <!-- Footer Social Icons-->
+                    <!-- Footer Social Icons (Colonne vide pour l'alignement) -->
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Around the Web</h4>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
                     </div>
-                    <!-- Footer About Text-->
+                    <!-- Footer About Text (Protected by Copyright) -->
                     <div class="col-lg-4">
-                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                        <h4 class="text-uppercase mb-4">Website Protection</h4>
                         <p class="lead mb-0">
-                            Freelance is a free to use, MIT licensed Bootstrap theme created by
-                            <a href="http://startbootstrap.com">Start Bootstrap</a>
-                            .
+                            All original content, designs, and source code modifications on this website are strictly protected by copyright law. Unauthorized duplication is prohibited.
                         </p>
                     </div>
                 </div>
             </div>
         </footer>
+        
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
             <div class="container">
-                <small>Copyright &copy; Your Website <span id="year">2026</span></small>
+                <small>Copyright &copy; <span id="copyright-year"></span> Nathaël <span id="copy-lastname"></span>. All rights reserved.</small>
             </div>
         </div>
-        <!-- Portfolio Modals-->
-        <!-- Unique Modal Dynamique -->
+        
+        <!-- ========================================== -->
+        <!-- BOÎTE DE DIALOGUE DE CONNEXION (LOGIN MODAL) -->
+        <!-- ========================================== -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-secondary text-white">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title text-uppercase fw-bold" id="loginModalLabel">🔒 Private Access Authentication</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center py-4">
+                        <p class="mb-4">Enter your private access code to unlock confidential details (Address, Full Name, and CV download).</p>
+                        <div class="form-floating mb-3 text-dark">
+                            <input type="password" class="form-control" id="accessCodeInput" placeholder="Enter code..." />
+                            <label for="accessCodeInput">Access Code</label>
+                        </div>
+                        <div id="login-error" class="text-danger fw-bold mb-3" style="display: none;">Invalid access code!</div>
+                        <button type="button" id="submitLoginBtn" class="btn btn-primary btn-xl w-100">Unlock Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unique Modal Dynamique pour le Portfolio -->
         <div class="portfolio-modal modal fade" id="dynamicPortfolioModal" tabindex="-1" aria-labelledby="dynamicPortfolioModal" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -294,17 +316,13 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <!-- Titre dynamique -->
                                     <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0"></h2>
-                                    <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
                                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <!-- Image dynamique -->
                                     <img id="modal-dynamic-img" class="img-fluid rounded mb-5" src="" alt="" />
-                                    <!-- Texte dynamique -->
                                     <p id="modal-dynamic-text" class="mb-4"></p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
                                         <i class="fas fa-xmark fa-fw"></i>
@@ -317,6 +335,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -332,7 +351,6 @@
             <div class="cookie-content">
                 <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide optional translation services. You can customize your choices below before continuing in English.</p>
             
-                <!-- Panneau des paramètres (Granularité RGPD) -->
                 <div id="cookie-settings" class="mb-3 text-left" style="font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" id="consent-analytics" checked>
@@ -349,9 +367,7 @@
                 </div>
             
                 <div class="cookie-buttons">
-                    <!-- Bouton pour enregistrer la sélection personnalisée -->
                     <button id="save-settings" class="btn btn-outline-light btn-sm mr-2 text-white">Save Settings</button>
-                    <!-- Bouton pour tout accepter d'un coup -->
                     <button id="accept-all" class="btn btn-light btn-sm text-dark font-weight-bold">Accept All</button>
                 </div>
             </div>
@@ -368,15 +384,11 @@
           const dynamicModal = document.getElementById('dynamicPortfolioModal');
           if (dynamicModal) {
               dynamicModal.addEventListener('show.bs.modal', function (event) {
-                  // L'élément (le bouton/la carte) qui a déclenché l'ouverture du modal
                   const triggerElement = event.relatedTarget;
-
-                  // Récupération des données stockées dans le HTML de la carte
                   const title = triggerElement.getAttribute('data-title');
                   const imgSrc = triggerElement.getAttribute('data-img');
                   const description = triggerElement.getAttribute('data-text');
             
-                  // Injection des données dans le modal
                   document.getElementById('modal-dynamic-title').textContent = title;
                   document.getElementById('modal-dynamic-img').setAttribute('src', imgSrc);
                   document.getElementById('modal-dynamic-img').setAttribute('alt', title);
@@ -384,15 +396,8 @@
               });
           }
 
-          // --- CODE DE L'ANNÉE DYNAMIQUE (Intégré proprement) ---
-          const yearElement = document.getElementById('year');
-          if (yearElement) {
-              yearElement.textContent = new Date().getFullYear();
-          }
-      
           const GA_TRACKING_ID = 'G-92GKHEX3C2';
       
-          // 1. Chargement de Google Analytics si accepté
           function loadGoogleAnalytics() {
               if (window.gtag) return;
         
@@ -409,22 +414,20 @@
               console.log("Google Analytics legally enabled!");
           }
       
-          // 2. Chargement de Google Translate si accepté
           function loadGoogleTranslate() {
               if (window.googleTranslateElementInit) return;
           
-              // Force l'affichage de la zone du widget
               const translateDiv = document.getElementById("google_translate_element");
               if (translateDiv) {
                   translateDiv.style.display = "block";
-                  translateDiv.style.margin = "10px text-center"; // Pour qu'il soit bien visible
+                  translateDiv.style.margin = "10px text-center";
               }
           
               window.googleTranslateElementInit = function() {
                   new google.translate.TranslateElement({
-                      pageLanguage: 'en', // Ton site est maintenant en anglais par défaut !
+                      pageLanguage: 'en',
                       layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                      autoDisplay: true // Tente de traduire automatiquement
+                      autoDisplay: true
                   }, 'google_translate_element');
               };
           
@@ -435,7 +438,6 @@
               console.log("Google Translate legally enabled!");
           }
       
-          // Fonctions de cookies
           function setCookie(name, value, days) {
               let expires = "";
               if (days) {
@@ -457,35 +459,43 @@
               return null;
           }
       
-          // 3. Banner logic and initializations on load
           document.addEventListener("DOMContentLoaded", function() {
               
-              // === A. DYNAMIC AGE AND SCHOOL GRADE CALCULATION ===
+              // 🔴 CONFIGURATION : METS ICI EXACTEMENT L'URL DE TON GOOGLE APPS SCRIPT (qui finit par /exec)
+              const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjlZ90QqFSumDyCuAAkTB_5HFtOql5iJ6PxYtv9uHp2pUC0K5yL8mZoupvXX4eNh2y4Q/exec";
+
+              // === A. CALCUL DYNAMIQUE DE L'ÂGE, DE LA SCOLARITÉ ET DU COPYRIGHT ===
               function updateStudentInfo() {
                   const infoElement = document.getElementById('student-info');
+                  const aboutAgeElement = document.getElementById('about-age');
+                  const copyrightYearElement = document.getElementById('copyright-year');
                   if (!infoElement) return;
 
                   const now = new Date();
                   const currentYear = now.getFullYear();
-                  const currentMonth = now.getMonth() + 1; // January = 1, July = 7...
+                  const currentMonth = now.getMonth() + 1; 
                   const currentDay = now.getDate();
 
-                  // 1. AUTOMATIC AGE CALCULATION (Birthday on March 6th, 2011)
+                  if (copyrightYearElement) {
+                      copyrightYearElement.textContent = currentYear;
+                  }
+
                   let age = currentYear - 2011; 
-                  // If we haven't reached March 6th yet, subtract one year
                   if (currentMonth < 3 || (currentMonth === 3 && currentDay < 6)) {
                       age--;
                   }
 
-                  // 2. SUMMER VACATION MANAGEMENT (From June 20th to August 31st)
+                  if (aboutAgeElement) {
+                      aboutAgeElement.textContent = age;
+                  }
+
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
 
                   if (isVacations) {
                       infoElement.textContent = `Student at Angeleta Ferrer i Sensat -- ${age} years old`;
-                      return; // Stop here so it doesn't display the grade during summer holidays
+                      return; 
                   }
 
-                  // 3. ESO / BATXILLERAT GRADE CALCULATION (Starts on September 1st)
                   let classe = "";
                   const schoolYearStart = (currentMonth >= 9) ? currentYear : currentYear - 1;
 
@@ -502,15 +512,95 @@
                       return;
                   }
 
-                  // Full display outside of summer holidays
                   infoElement.textContent = `Student at Angeleta Ferrer i Sensat -- ${age} years old -- ${classe}`;
               }
 
-              // Run the school grade and age calculation immediately
               updateStudentInfo();
 
 
-              // === B. COOKIE BANNER MANAGEMENT ===
+              // === B. INTERFACE DE CONNEXION SÉCURISÉE VERS GOOGLE SHEETS ===
+              const submitLoginBtn = document.getElementById("submitLoginBtn");
+              const accessCodeInput = document.getElementById("accessCodeInput");
+              const loginError = document.getElementById("login-error");
+              const loginTrigger = document.getElementById("login-trigger");
+              
+              if (submitLoginBtn) {
+                  submitLoginBtn.addEventListener("click", function() {
+                      const codeValue = accessCodeInput.value.trim();
+                      if (!codeValue) return;
+                      
+                      loginError.style.display = "none";
+                      submitLoginBtn.textContent = "⌛ Verifying...";
+                      submitLoginBtn.disabled = true;
+                      
+                      fetch(APPS_SCRIPT_URL, {
+                          method: "POST",
+                          mode: "cors",
+                          body: JSON.stringify({ code: codeValue })
+                      })
+                      .then(response => response.json())
+                      .then(result => {
+                          submitLoginBtn.textContent = "Unlock Data";
+                          submitLoginBtn.disabled = false;
+                          
+                          if (result.success) {
+                              // 1. Fermer la boîte de dialogue (Modal)
+                              const loginModalEl = document.getElementById('loginModal');
+                              const modalInstance = bootstrap.Modal.getInstance(loginModalEl);
+                              if (modalInstance) modalInstance.hide();
+                              
+                              // 2. Injecter le nom de famille partout (Titre de l'onglet, Navbar, Titre central, Footer)
+                              if (result.data.lastName) {
+                                  document.title = "Portfolio Nathaël " + result.data.lastName;
+                                  document.getElementById("nav-lastname").textContent = result.data.lastName;
+                                  document.getElementById("private-lastname").textContent = result.data.lastName;
+                                  document.getElementById("copy-lastname").textContent = result.data.lastName;
+                              }
+                              
+                              // 3. Injecter l'adresse réelle (Sant Cugat)
+                              const addressEl = document.getElementById("private-address");
+                              if (addressEl && result.data.address) {
+                                  addressEl.innerHTML = result.data.address.replace(", ", "<br/>");
+                              }
+                              
+                              // 4. Débloquer ou refuser l'accès au CV
+                              const cvButton = document.getElementById("cv-button");
+                              if (cvButton) {
+                                  if (result.canDownloadCV === true || result.canDownloadCV === "TRUE") {
+                                      cvButton.classList.remove("disabled");
+                                      cvButton.style.pointerEvents = "auto";
+                                      cvButton.style.opacity = "1";
+                                      cvButton.setAttribute("href", "assets/mon-cv.pdf"); // Ton lien secret vers le CV PDF !
+                                      cvButton.innerHTML = '<i class="fas fa-download me-2"></i>Download CV';
+                                  } else {
+                                      cvButton.innerHTML = '<i class="fas fa-lock me-2"></i>CV Access Denied';
+                                  }
+                              }
+                              
+                              // 5. Modifier le bouton en haut en bouton Logout rouge
+                              loginTrigger.textContent = "🔓 Logout (" + result.userName + ")";
+                              loginTrigger.className = "nav-link py-3 px-0 px-lg-3 rounded text-danger fw-bold";
+                              loginTrigger.removeAttribute("data-bs-toggle");
+                              loginTrigger.removeAttribute("data-bs-target");
+                              loginTrigger.onclick = function() { location.reload(); };
+                              
+                              accessCodeInput.value = "";
+                          } else {
+                              loginError.style.display = "block";
+                          }
+                      })
+                      .catch(err => {
+                          console.error(err);
+                          loginError.textContent = "Server error. Try again.";
+                          loginError.style.display = "block";
+                          submitLoginBtn.textContent = "Unlock Data";
+                          submitLoginBtn.disabled = false;
+                      });
+                  });
+              }
+
+
+              // === C. COOKIE BANNER MANAGEMENT ===
               const banner = document.getElementById("cookie-banner");
               const saveBtn = document.getElementById("save-settings");
               const acceptAllBtn = document.getElementById("accept-all");
