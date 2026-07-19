@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="My coding skills and technical expertise." />
+        <meta name="author" content="Nathaël" />
+        <title>Skills & Competencies - Nathaël</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            .skill-card { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; transition: transform 0.3s ease; }
+            .skill-card:hover { transform: translateY(-5px); }
+            .progress { height: 12px; border-radius: 6px; background-color: #e9ecef; }
+            .progress-bar { background-color: #1abc9c; transition: width 1.5s ease-in-out; }
+            .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 5px; margin-bottom: 25px; }
+            /* Cacher la barre Google Translate native */
+            .goog-te-banner-frame.skiptranslate { display: none !important; }
+            body { top: 0px !important; }
+        </style>
+    </head>
+    <body id="page-top" class="bg-light">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Portfolio Nathaël</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                    Menu <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#portfolio">Portfolio</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded active" href="skills.html">Skills</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#about">About</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Section Skills -->
+        <section class="page-section" style="margin-top: 100px; min-height: 80vh;">
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">My Skills</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <p class="text-center lead mb-5 text-muted">A dynamic overview of my technical skills, programming languages, and tools, synchronized in real-time with my database.</p>
+                
+                <!-- Zone où les compétences vont se générer -->
+                <div id="skills-container" class="row justify-content-center">
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted fw-bold">Loading skills from database...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer-->
+        <footer class="footer text-center bg-secondary text-white py-4">
+            <div class="container">
+                <small>Copyright &copy; <span id="copyright-year"></span> Nathaël. All rights reserved.</small>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script>
+            const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjlZ90QqFSumDyCuAAkTB_5HFtOql5iJ6PxYtv9uHp2pUC0K5yL8mZoupvXX4eNh2y4Q/exec";
+
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+                fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "loadSkills" })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success && result.skills && result.skills.length > 0) {
+                        renderSkills(result.skills);
+                    } else {
+                        document.getElementById("skills-container").innerHTML = `<div class="col-12 text-center"><p class="alert alert-warning">No skills found. Please add data to the 'Skills' tab in Google Sheets.</p></div>`;
+                    }
+                })
+                .catch(err => {
+                    console.error("Erreur chargement skills:", err);
+                    document.getElementById("skills-container").innerHTML = `<div class="col-12 text-center"><p class="text-danger">Failed to load skills. Please check connection.</p></div>`;
+                });
+
+                function renderSkills(skills) {
+                    const container = document.getElementById("skills-container");
+                    container.innerHTML = ""; 
+
+                    // Regrouper les skills par catégorie
+                    const categories = {};
+                    skills.forEach(skill => {
+                        const cat = skill.category || "General";
+                        if (!categories[cat]) categories[cat] = [];
+                        categories[cat].push(skill);
+                    });
+
+                    // Créer le HTML pour chaque catégorie
+                    for (const [categoryName, skillsList] of Object.entries(categories)) {
+                        const col = document.createElement("div");
+                        col.className = "col-lg-6 mb-4";
+                        
+                        let skillsHtml = "";
+                        skillsList.forEach(s => {
+                            const level = Math.min(Math.max(parseInt(s.level) || 50, 0), 100);
+                            skillsHtml += `
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-bold text-dark fs-5"><i class="fas fa-check-circle text-primary me-2"></i>${s.name}</span>
+                                        <span class="badge bg-secondary">${s.experience || level + '%'}</span>
+                                    </div>
+                                    <div class="progress shadow-sm">
+                                        <div class="progress-bar" role="progressbar" style="width: ${level}%;" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        col.innerHTML = `
+                            <div class="skill-card h-100">
+                                <h4 class="skill-category-title text-uppercase fw-bold"><i class="fas fa-layer-group me-2"></i>${categoryName}</h4>
+                                ${skillsHtml}
+                            </div>
+                        `;
+                        container.appendChild(col);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
