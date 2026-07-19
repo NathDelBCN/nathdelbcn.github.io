@@ -12,10 +12,18 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="css/styles.css" rel="stylesheet" />
         <style>
-            /* Petits styles pour sublimer les projets verrouillés et le centrage */
             .portfolio-item.locked { filter: grayscale(100%); opacity: 0.6; cursor: not-allowed; }
             .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
             .form-floating input:focus { border-color: #1abc9c; box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25); }
+            
+            /* Préserve les sauts de ligne et la mise en forme du tableur */
+            .format-rich-text { white-space: pre-line; word-wrap: break-word; }
+            
+            /* Widget Google Translate Flottant et Escamotable */
+            #translate-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+            #translate-toggle-btn { background: #2c3e50; color: #fff; border: 2px solid #1abc9c; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+            #translate-toggle-btn:hover { background: #1abc9c; color: #2c3e50; }
+            #google_translate_element { display: none; background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 10px; }
         </style>
     </head>
     <body id="page-top">
@@ -42,7 +50,7 @@
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
-                <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..." />
+                <img id="profile-avatar" class="masthead-avatar mb-5 rounded-circle shadow" src="assets/img/avataaars.svg" alt="..." style="object-fit: cover; width: 15rem; height: 15rem;" />
                 <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3;">
                     Portfolio <span class="d-block">Nathaël <span id="private-lastname"></span></span>
                 </h1>
@@ -51,12 +59,11 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- L'école et les infos scolaires se chargeront en toute sécurité ici -->
                 <p class="masthead-subheading font-weight-light mb-0" id="student-info">High School Student</p>
             </div>
         </header>
         
-        <!-- Portfolio Section (Généré 100% automatiquement depuis Google Sheets !) -->
+        <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
@@ -66,7 +73,6 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 
-                <!-- Zone où les cartes vont apparaître automatiquement -->
                 <div class="row justify-content-center" id="portfolio-grid">
                     <div class="col-12 text-center py-5">
                         <div class="spinner-border text-primary" role="status"></div>
@@ -87,7 +93,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <p class="lead">
+                        <p class="lead format-rich-text">
                             Hi! I'm Nathaël, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
@@ -140,19 +146,17 @@
             </div>
         </section>
         
-        <!-- Footer (PARFAITEMENT CENTRÉ EN 2 COLONNES ÉGALES !) -->
+        <!-- Footer-->
         <footer class="footer text-center">
             <div class="container">
                 <div class="row justify-content-center">
-                    <!-- Colonne 1 : Localisation -->
                     <div class="col-md-6 mb-5 mb-md-0 px-4">
                         <h4 class="text-uppercase mb-4">Location</h4>
-                        <p class="lead mb-0" id="private-address">
+                        <p class="lead mb-0 format-rich-text" id="private-address">
                             <i class="fas fa-shield-alt text-warning mb-2 fa-2x"></i><br/>
                             <em>Location protected.<br/>Please login to unlock.</em>
                         </p>
                     </div>
-                    <!-- Colonne 2 : Protection Juridique -->
                     <div class="col-md-6 px-4">
                         <h4 class="text-uppercase mb-4">Website Protection</h4>
                         <p class="lead mb-0">
@@ -170,9 +174,7 @@
             </div>
         </div>
         
-        <!-- ========================================== -->
-        <!-- BOÎTE DE DIALOGUE DE CONNEXION (PARFAITEMENT CENTRÉE) -->
-        <!-- ========================================== -->
+        <!-- Modal de Connexion -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-secondary text-white border-0 shadow-lg">
@@ -196,7 +198,7 @@
             </div>
         </div>
 
-        <!-- Modal Dynamique pour afficher les projets -->
+        <!-- Modal Dynamique Portfolio -->
         <div class="portfolio-modal modal fade" id="dynamicPortfolioModal" tabindex="-1" aria-labelledby="dynamicPortfolioModal" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
@@ -208,7 +210,8 @@
                                     <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0"></h2>
                                     <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
                                     <img id="modal-dynamic-img" class="img-fluid rounded mb-5 shadow" src="" alt="" />
-                                    <p id="modal-dynamic-text" class="mb-4 lead"></p>
+                                    <!-- Classe format-rich-text ajoutée pour préserver les paragraphes et le HTML -->
+                                    <p id="modal-dynamic-text" class="mb-4 lead format-rich-text text-start"></p>
                                     <button class="btn btn-primary btn-lg" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Close Window</button>
                                 </div>
                             </div>
@@ -221,7 +224,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
 
-        <!-- Bannière Cookies & Traduction -->
+        <!-- Bannière Cookies -->
         <div id="cookie-banner" class="cookie-banner" style="display: none;">
             <div class="cookie-content">
                 <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide optional translation services.</p>
@@ -235,21 +238,30 @@
                 </div>
             </div>
         </div>
-        <div id="google_translate_element" style="display: none;"></div>
+        
+        <!-- Widget Google Translate Escamotable en bas à droite -->
+        <div id="translate-widget-container" style="display: none;">
+            <div id="google_translate_element"></div>
+            <button id="translate-toggle-btn" title="Toggle translation language">
+                <i class="fas fa-globe"></i> <span>Translate</span>
+            </button>
+        </div>
 
-        <!-- ========================================== -->
-        <!-- SCRIPT JAVASCRIPT PRINCIPAL                -->
-        <!-- ========================================== -->
+        <!-- SCRIPT JAVASCRIPT PRINCIPAL OPTIMISÉ -->
         <script>
-          // 🔴 METS ICI L'URL DE TON GOOGLE APPS SCRIPT DEPLOYÉ (/exec)
           const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjlZ90QqFSumDyCuAAkTB_5HFtOql5iJ6PxYtv9uHp2pUC0K5yL8mZoupvXX4eNh2y4Q/exec";
 
-          let globalProjectsData = []; // Stocke les projets reçus de Google Sheets
-          let userAllowedProjects = null; // null = visiteur public, array = utilisateur connecté
+          let globalProjectsData = []; 
+          let userAllowedProjects = null; 
+
+          // Fonction helper pour respecter les retours à la ligne du Sheet sans casser le HTML
+          function formatSheetText(text) {
+              if (!text) return "";
+              return text.replace(/\\n|\n|\|/g, "<br/>");
+          }
 
           document.addEventListener("DOMContentLoaded", function() {
               
-              // 1. CALCUL AUTOMATIQUE DES ÂGES ET SCOLAIRE (Sans exposer le nom de l'école !)
               function updateStudentInfo(schoolName = "High School Student") {
                   const infoElement = document.getElementById('student-info');
                   const aboutAgeElement = document.getElementById('about-age');
@@ -269,7 +281,6 @@
 
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
                   
-                  // Si l'école est déverrouillée par login, on l'écrit, sinon on met "High school student"
                   if (aboutSchoolText) {
                       aboutSchoolText.textContent = (schoolName !== "High School Student") ? `student at ${schoolName}` : "high school student";
                   }
@@ -291,9 +302,8 @@
                   infoElement.textContent = `${schoolName} -- ${age} years old -- ${classe}`;
               }
 
-              updateStudentInfo(); // Lancement initial public
+              updateStudentInfo(); 
 
-              // 2. CHARGEMENT DYNAMIQUE DES PROJETS DEPUIS GOOGLE SHEETS
               fetch(APPS_SCRIPT_URL, {
                   method: "POST",
                   body: JSON.stringify({ action: "loadProjects" })
@@ -306,39 +316,39 @@
                   } else {
                       document.getElementById("portfolio-grid").innerHTML = `<p class="text-danger fw-bold">Failed to load projects.</p>`;
                   }
+
+                  // Mise à jour de la photo de profil si présente dans Config !
+                  if (result.profileImage && result.profileImage.trim() !== "") {
+                      document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
+                  }
               })
               .catch(err => {
                   console.error("Erreur chargement projets:", err);
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Projects offline. Please check API connection.</p>`;
               });
 
-              // Fonction qui dessine les cartes dans le HTML
               function renderProjectsGrid() {
                   const grid = document.getElementById("portfolio-grid");
-                  grid.innerHTML = ""; // On vide le loader
+                  grid.innerHTML = ""; 
 
                   globalProjectsData.forEach((proj, index) => {
-                      // On vérifie si l'utilisateur connecté a le droit de voir ce projet
-                      const isAllowed = (userAllowedProjects === null) ? true : (userAllowedProjects[index] === true);
-                      
+                      const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[index] === true);
                       const col = document.createElement("div");
                       col.className = "col-md-6 col-lg-4 mb-5";
                       
                       if (isAllowed) {
-                          // CARTE NORMALE CLIQUABLE
                           col.innerHTML = `
                               <div class="portfolio-item mx-auto shadow rounded" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
-                                   data-title="${proj.title}" data-img="${proj.img}" data-text="${proj.text}">
+                                   data-title="${proj.title}" data-img="${proj.img}" data-text="${encodeURIComponent(proj.text || '')}">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                       <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
                                           <i class="fas fa-plus fa-2x mb-2"></i>
-                                          <div class="fw-bold text-uppercase text-white" style="font-size: 0.85rem;">${proj.preview || 'View Project'}</div>
+                                          <div class="fw-bold text-uppercase text-white format-rich-text" style="font-size: 0.85rem;">${formatSheetText(proj.preview) || 'View Project'}</div>
                                       </div>
                                   </div>
                                   <img class="img-fluid w-100" src="${proj.img}" alt="${proj.title}" style="height: 250px; object-fit: cover;" />
                               </div>`;
                       } else {
-                          // CARTE VERROUILLÉE (Si la case est décochée dans le Sheet pour cette personne)
                           col.innerHTML = `
                               <div class="portfolio-item mx-auto shadow rounded locked" title="You do not have permission to view this project">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
@@ -354,18 +364,18 @@
                   });
               }
 
-              // Gestion de l'injection dans le modal au clic
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
                       const trigger = event.relatedTarget;
                       document.getElementById('modal-dynamic-title').textContent = trigger.getAttribute('data-title');
                       document.getElementById('modal-dynamic-img').setAttribute('src', trigger.getAttribute('data-img'));
-                      document.getElementById('modal-dynamic-text').textContent = trigger.getAttribute('data-text');
+                      // Restaure la mise en forme riche et les sauts de ligne dans la modale
+                      const rawText = decodeURIComponent(trigger.getAttribute('data-text') || '');
+                      document.getElementById('modal-dynamic-text').innerHTML = formatSheetText(rawText);
                   });
               }
 
-              // 3. SYSTÈME D'AUTHENTIFICATION SÉCURISÉ VERS GOOGLE SHEETS
               const submitLoginBtn = document.getElementById("submitLoginBtn");
               const accessCodeInput = document.getElementById("accessCodeInput");
               const loginError = document.getElementById("login-error");
@@ -390,12 +400,14 @@
                           submitLoginBtn.disabled = false;
                           
                           if (result.success) {
-                              // Fermer le modal
                               const loginModalEl = document.getElementById('loginModal');
                               const modalInstance = bootstrap.Modal.getInstance(loginModalEl);
                               if (modalInstance) modalInstance.hide();
                               
-                              // Déverrouiller les textes cachés
+                              if (result.profileImage && result.profileImage.trim() !== "") {
+                                  document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
+                              }
+                              
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
                                   document.getElementById("nav-lastname").textContent = result.data.lastName;
@@ -404,19 +416,16 @@
                               }
                               
                               if (result.data.address) {
-                                  document.getElementById("private-address").innerHTML = result.data.address.replace(", ", "<br/>");
+                                  document.getElementById("private-address").innerHTML = formatSheetText(result.data.address);
                               }
                               
-                              // Mettre à jour l'école avec son vrai nom !
                               if (result.data.school) {
                                   updateStudentInfo(result.data.school);
                               }
 
-                              // Mettre à jour la grille de projets selon les cases cochées de l'utilisateur !
                               userAllowedProjects = result.allowedProjects;
                               renderProjectsGrid();
                               
-                              // Déverrouiller le CV
                               const cvButton = document.getElementById("cv-button");
                               if (cvButton) {
                                   if (result.canDownloadCV === true || result.canDownloadCV === "TRUE") {
@@ -430,7 +439,6 @@
                                   }
                               }
                               
-                              // Transformer le bouton en Logout
                               loginTrigger.textContent = "🔓 Logout (" + result.userName + ")";
                               loginTrigger.className = "nav-link py-3 px-0 px-lg-3 rounded text-danger fw-bold";
                               loginTrigger.removeAttribute("data-bs-toggle");
@@ -450,7 +458,7 @@
                   });
               }
 
-              // Cookies & Analytics
+              // Cookies, Analytics et Widget de Traduction
               const GA_TRACKING_ID = 'G-92GKHEX3C2';
               const banner = document.getElementById("cookie-banner");
               const saveBtn = document.getElementById("save-settings");
@@ -488,10 +496,27 @@
           
               function loadGoogleTranslate() {
                   if (window.googleTranslateElementInit) return;
+                  const container = document.getElementById("translate-widget-container");
                   const translateDiv = document.getElementById("google_translate_element");
-                  if (translateDiv) { translateDiv.style.display = "block"; translateDiv.style.margin = "10px text-center"; }
+                  const toggleBtn = document.getElementById("translate-toggle-btn");
+
+                  if (container) container.style.display = "block";
+                  
+                  // Action du bouton pour réduire/ouvrir la boîte de traduction
+                  if (toggleBtn && translateDiv) {
+                      toggleBtn.addEventListener("click", function() {
+                          if (translateDiv.style.display === "none" || translateDiv.style.display === "") {
+                              translateDiv.style.display = "block";
+                              toggleBtn.innerHTML = '<i class="fas fa-times"></i> <span>Close</span>';
+                          } else {
+                              translateDiv.style.display = "none";
+                              toggleBtn.innerHTML = '<i class="fas fa-globe"></i> <span>Translate</span>';
+                          }
+                      });
+                  }
+
                   window.googleTranslateElementInit = function() {
-                      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: true }, 'google_translate_element');
+                      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
                   };
                   const gtScript = document.createElement('script'); gtScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
                   document.head.appendChild(gtScript);
