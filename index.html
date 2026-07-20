@@ -88,6 +88,20 @@
                 padding: 0 !important;
                 top: 0;
             }
+            
+            /* Style personnalisé du menu déroulant déplié */
+            .dropdown-menu .dropdown-item {
+                color: #fff;
+                border-radius: 0.5rem;
+                padding: 10px 15px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+            }
+            .dropdown-menu .dropdown-item:hover, 
+            .dropdown-menu .dropdown-item.active {
+                background-color: #1abc9c;
+                color: #fff;
+            }
 
         </style>
     </head>
@@ -149,10 +163,13 @@
                         <input type="text" id="projectSearchInput" class="form-control" placeholder="Search project by name..." />
                         <i class="fas fa-search search-icon"></i>
                     </div>
-                    <div class="filter-dropdown-box">
-                        <select id="projectFilterDropdown" class="form-select">
-                            <option value="all">📂 All Categories</option>
-                        </select>
+                    <div class="filter-dropdown-box dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50;">
+                            📂 All Categories
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu" style="border-radius: 1rem; background-color: #2c3e50; min-width: 100%;">
+                            <!-- Les options dynamiques seront injectées ici -->
+                        </ul>
                     </div>
                 </div>
                 
@@ -483,21 +500,34 @@
 
               // CRÉER LE MENU DÉROULANT DES CATÉGORIES (SANS LE #)
               function buildDropdown() {
-                  const dropdown = document.getElementById("projectFilterDropdown");
-                  dropdown.innerHTML = `<option value="all">📂 All Categories</option>`;
+                  const menu = document.getElementById("customFilterMenu");
+                  const btn = document.getElementById("dropdownFilterBtn");
                   
-                  // Trier alphabétiquement
+                  menu.innerHTML = `<li><a class="dropdown-item active" href="#!" data-value="all">📂 All Categories</a></li>`;
+                  
                   const sortedCategories = Array.from(availableCategories).sort();
                   
                   sortedCategories.forEach(cat => {
-                      const opt = document.createElement("option");
-                      opt.value = cat.toLowerCase();
-                      opt.textContent = `🏷️ ${cat}`;
-                      dropdown.appendChild(opt);
+                      const li = document.createElement("li");
+                      li.innerHTML = `<a class="dropdown-item" href="#!" data-value="${cat.toLowerCase()}">🏷️ ${cat}</a>`;
+                      menu.appendChild(li);
                   });
-
-                  dropdown.addEventListener("change", function() {
-                      applyFilter(this.value);
+              
+                  // Écouteur de clic sur les options du menu
+                  menu.querySelectorAll(".dropdown-item").forEach(item => {
+                      item.addEventListener("click", function(e) {
+                          e.preventDefault();
+                          const val = this.getAttribute("data-value");
+                          
+                          // Mise à jour du texte du bouton principal
+                          btn.innerHTML = this.innerHTML;
+                          
+                          // Gestion de la classe active
+                          menu.querySelectorAll(".dropdown-item").forEach(i => i.classList.remove("active"));
+                          this.classList.add("active");
+                          
+                          applyFilter(val);
+                      });
                   });
               }
 
