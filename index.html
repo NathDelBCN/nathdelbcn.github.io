@@ -13,77 +13,95 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="css/styles.css" rel="stylesheet" />
         <style>
-            .portfolio-item.locked { filter: grayscale(100%); opacity: 0.6; cursor: not-allowed; }
-            .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
-            .form-floating input:focus, .form-floating textarea:focus { border-color: #1abc9c; box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25); }
+            /* --- AMÉLIORATIONS GÉNÉRALES --- */
+            body { font-family: 'Lato', sans-serif; }
+            h1, h2, h3, h4, h5, h6, .navbar-brand { font-family: 'Montserrat', sans-serif; }
+            .lead { line-height: 1.8; font-size: 1.15rem; }
             
-            /* Préserve la mise en forme du tableur */
-            .format-rich-text { white-space: pre-line; word-wrap: break-word; }
-            
-            /* --- STYLES PORTFOLIO HOVER & TEXT --- */
+            /* --- PORTFOLIO HOVER & TEXT --- */
+            .portfolio-item { transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 1rem; overflow: hidden; }
+            .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; }
+            /* Vitesse de la croix ralentie à 1.2s comme demandé */
             .portfolio-item .fa-plus { transition: transform 1.2s ease-in-out; }
             .portfolio-item:hover .fa-plus { transform: rotate(270deg); }
             .portfolio-caption-text { font-weight: 800 !important; font-size: 1.1rem !important; letter-spacing: 1px; }
+            
+            .portfolio-item.locked { filter: grayscale(100%); opacity: 0.7; cursor: not-allowed; }
+            .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
             .portfolio-item .fa-lock { transition: transform 0.5s ease-in-out; }
             .portfolio-item:hover .fa-lock { transform: rotate(15deg) scale(1.1); }
             
             /* --- STYLES SKILLS --- */
-            .skill-card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 30px; transition: all 0.3s ease; border: 2px solid transparent; cursor: pointer; color: #2c3e50; }
-            .skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-color: #1abc9c; }
+            .skill-card { background: #fff; border-radius: 1rem; padding: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 30px; transition: all 0.4s ease; border: 2px solid transparent; cursor: pointer; color: #2c3e50; }
+            .skill-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(26,188,156,0.15); border-color: #1abc9c; }
             .skill-card:hover .skill-category-title { color: #1abc9c; }
-            .progress { height: 12px; border-radius: 6px; background-color: #e9ecef; }
-            .progress-bar { background-color: #1abc9c; transition: width 1.5s ease-in-out; }
-            .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 5px; margin-bottom: 25px; transition: color 0.3s ease; }
-            .skill-item-row { transition: background-color 0.2s; padding: 6px 8px; border-radius: 6px; }
+            .progress { height: 14px; border-radius: 7px; background-color: #e9ecef; overflow: visible; }
+            .progress-bar { background-color: #1abc9c; border-radius: 7px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+            .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 8px; margin-bottom: 25px; transition: color 0.3s ease; }
+            .skill-item-row { transition: background-color 0.2s; padding: 8px 12px; border-radius: 8px; margin-left: -12px; margin-right: -12px; }
             .skill-item-row:hover { background-color: #f8f9fa; }
             
-            /* --- STYLES RECHERCHE & FILTRES (Côte à côte) --- */
-            .search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; max-width: 800px; margin: 0 auto 40px auto; }
-            .search-box { flex: 1; min-width: 280px; position: relative; }
-            .search-box input { border-radius: 30px; padding-left: 45px; border: 2px solid #ced4da; box-shadow: none; transition: all 0.3s; height: 50px; font-size: 1rem; }
-            .search-box input:focus { border-color: #1abc9c; box-shadow: 0 0 10px rgba(26,188,156,0.2); }
-            .search-box .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #6c757d; font-size: 1.1rem; }
-            .filter-dropdown-box { min-width: 220px; }
-            .filter-dropdown-box select { border-radius: 30px; border: 2px solid #2c3e50; background-color: #fff; color: #2c3e50; height: 50px; padding: 0 20px; font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; width: 100%; box-shadow: none; }
-            .filter-dropdown-box select:focus, .filter-dropdown-box select:hover { border-color: #1abc9c; color: #1abc9c; outline: none; }
+            /* --- STYLES RECHERCHE & FILTRES --- */
+            .search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; max-width: 850px; margin: 0 auto 50px auto; }
+            .search-box { flex: 1; min-width: 300px; position: relative; }
+            .search-box input { border-radius: 50px; padding-left: 50px; border: 2px solid #e9ecef; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.3s; height: 55px; font-size: 1.05rem; }
+            .search-box input:focus { border-color: #1abc9c; box-shadow: 0 0 15px rgba(26,188,156,0.15); outline: none; }
+            .search-box .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #adb5bd; font-size: 1.2rem; transition: color 0.3s; }
+            .search-box input:focus + .search-icon { color: #1abc9c; }
+            
+            .filter-dropdown-box { min-width: 240px; }
+            .filter-dropdown-box select { border-radius: 50px; border: 2px solid #2c3e50; background-color: #2c3e50; color: #fff; height: 55px; padding: 0 25px; font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>'); background-repeat: no-repeat; background-position: right 20px center; }
+            .filter-dropdown-box select:focus, .filter-dropdown-box select:hover { border-color: #1abc9c; background-color: #1abc9c; outline: none; box-shadow: 0 6px 12px rgba(26,188,156,0.3); }
             
             /* --- STYLES PAGINATION --- */
-            .pagination-btn { width: 45px; height: 45px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #2c3e50; background: #fff; color: #2c3e50; margin: 0 4px; transition: all 0.2s; cursor: pointer; }
-            .pagination-btn:hover:not(.disabled) { background: #1abc9c; border-color: #1abc9c; color: #fff; transform: scale(1.1); }
-            .pagination-btn.active { background: #2c3e50; border-color: #2c3e50; color: #fff; }
-            .pagination-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #ced4da; color: #6c757d; }
+            .pagination-btn { width: 50px; height: 50px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #2c3e50; background: #fff; color: #2c3e50; margin: 0 5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+            .pagination-btn:hover:not(.disabled) { background: #1abc9c; border-color: #1abc9c; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(26,188,156,0.3); }
+            .pagination-btn.active { background: #2c3e50; border-color: #2c3e50; color: #fff; transform: scale(1.1); }
+            .pagination-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #ced4da; color: #6c757d; box-shadow: none; }
             
             /* --- NAVBAR ADAPTATIONS --- */
-            .navbar-brand { font-size: 1.25rem !important; letter-spacing: 0.5px; white-space: nowrap; }
-            .navbar-nav .nav-link { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 0.9rem !important; white-space: nowrap; }
+            .navbar-brand { font-size: 1.3rem !important; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.3s; }
+            .navbar-brand:hover { color: #1abc9c !important; }
+            .navbar-nav .nav-link { padding-left: 0.8rem !important; padding-right: 0.8rem !important; font-size: 0.95rem !important; white-space: nowrap; border-radius: 0.5rem; transition: background-color 0.3s, color 0.3s; }
+            .navbar-nav .nav-link:hover { background-color: rgba(26, 188, 156, 0.1); color: #1abc9c !important; }
+            #login-trigger:hover { background-color: rgba(243, 156, 18, 0.1); }
 
-            /* Contact Form Adjustments */
-            .contact-form-wrapper { background: #fff; padding: 3rem; border-radius: 1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-            #contactForm .form-floating label { color: #6c757d; }
+            /* --- FORMULAIRES & BOUTONS PRO --- */
+            .contact-form-wrapper { background: #fff; padding: 3.5rem; border-radius: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05); }
+            .form-floating input, .form-floating textarea { border-radius: 1rem !important; border: 2px solid #e9ecef; transition: all 0.3s; }
+            .form-floating input:focus, .form-floating textarea:focus { border-color: #1abc9c; box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.1); }
+            .form-floating label { color: #858796; font-weight: 500; }
+            .btn-xl { padding: 1.25rem 2.5rem; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.3s; border-radius: 50px !important; }
+            .btn-primary:hover { background-color: #128f76; border-color: #128f76; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(26,188,156,0.3) !important; }
+            .btn-outline-dark:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; }
 
             /* Login Input Rounded */
-            #accessCodeInput { border-radius: 1rem; border: 2px solid #ced4da; transition: border-color 0.3s ease; }
-            #accessCodeInput:focus { border-color: #1abc9c; box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25); }
+            #accessCodeInput { border-radius: 1rem; border: 2px solid #ced4da; transition: all 0.3s ease; height: 60px; font-size: 1.2rem; }
+            #accessCodeInput:focus { border-color: #f39c12; box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.15); }
+            
+            /* Mise en valeur du Nom de Famille dans About Me */
+            #about-lastname { transition: color 0.3s ease; }
         </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
+                <!-- Le nom de famille N'APPARAÎT PLUS ICI -->
                 <a class="navbar-brand" href="#page-top">
-                    <span>Portfolio Nathaël <span id="nav-lastname"></span></span>
+                    <i class="fas fa-code me-2 text-primary"></i><span>Portfolio Nathaël</span>
                 </a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2 rounded" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2 rounded" href="#skills">Skills</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2 rounded" href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2 rounded" href="#contact">Contact</a></li>
-                        <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-2 rounded text-warning fw-bold" href="#!" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-trigger">🔒 Login</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2" href="#skills">Skills</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2" href="#about">About</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2" href="#contact">Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1 mt-2 mt-lg-0 ms-lg-2">
+                            <a class="nav-link py-2 px-3 rounded-pill text-warning fw-bold border border-warning" href="#!" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-trigger" style="transition: all 0.3s;">🔒 Login</a>
                         </li>
                     </ul>
                 </div>
@@ -93,38 +111,39 @@
         <!-- Masthead -->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
-                <img id="profile-avatar" class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="Avatar" style="width: 15rem; height: 15rem; object-fit: contain;" />
-                <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3;">
-                    Portfolio <span class="d-block">Nathaël <span id="private-lastname"></span></span>
+                <img id="profile-avatar" class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="Avatar" style="width: 16rem; height: 16rem; object-fit: contain; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.15));" />
+                <!-- Le nom de famille N'APPARAÎT PLUS ICI -->
+                <h1 class="masthead-heading text-uppercase mb-0" style="line-height: 1.3; font-weight: 800;">
+                    Portfolio <span class="d-block text-white">Nathaël</span>
                 </h1>
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <p class="masthead-subheading font-weight-light mb-0" id="student-info">High School Student</p>
+                <p class="masthead-subheading font-weight-light mb-0 fs-4" id="student-info">High School Student</p>
             </div>
         </header>
         
         <!-- Portfolio Section -->
         <section class="page-section portfolio bg-white" id="portfolio">
             <div class="container">
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0 fw-bold">Portfolio</h2>
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-briefcase"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 
                 <!-- Barre de Recherche et Filtres -->
                 <div class="search-filter-container">
                     <div class="search-box">
-                        <i class="fas fa-search search-icon"></i>
                         <input type="text" id="projectSearchInput" class="form-control" placeholder="Search project by name..." />
+                        <i class="fas fa-search search-icon"></i>
                     </div>
                     <div class="filter-dropdown-box">
                         <select id="projectFilterDropdown" class="form-select">
-                            <option value="all">📂 All Categories / Filter</option>
+                            <option value="all">📂 All Categories</option>
                         </select>
                     </div>
                 </div>
@@ -132,34 +151,34 @@
                 <!-- Grille des projets -->
                 <div class="row justify-content-center" id="portfolio-grid">
                     <div class="col-12 text-center py-5">
-                        <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-2 text-muted fw-bold">Loading projects from database...</p>
+                        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+                        <p class="mt-3 text-muted fw-bold fs-5">Loading awesome projects...</p>
                     </div>
                 </div>
                 
                 <!-- Contrôles de Pagination -->
-                <div class="d-flex justify-content-center align-items-center mt-4" id="portfolio-pagination" style="display: none !important;"></div>
+                <div class="d-flex justify-content-center align-items-center mt-5" id="portfolio-pagination" style="display: none !important;"></div>
             </div>
         </section>
         
         <!-- Skills Section -->
         <section class="page-section bg-primary text-white" id="skills">
             <div class="container">
-                <h2 class="page-section-heading text-center text-uppercase text-white mb-0">My Skills</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-white mb-0 fw-bold">My Skills</h2>
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 
-                <p class="text-center lead mb-5 text-white-50">
+                <p class="text-center lead mb-5 text-white-50" style="max-width: 700px; margin: 0 auto;">
                     Click on any skill category card below to automatically filter and explore related portfolio projects!
                 </p>
                 
                 <div id="skills-container" class="row justify-content-center">
                     <div class="col-12 text-center py-5">
-                        <div class="spinner-border text-light" role="status"></div>
-                        <p class="mt-2 text-white fw-bold">Loading skills from database...</p>
+                        <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;"></div>
+                        <p class="mt-3 text-white fw-bold fs-5">Loading skills matrix...</p>
                     </div>
                 </div>
             </div>
@@ -168,23 +187,24 @@
         <!-- About Section -->
         <section class="page-section bg-white text-secondary mb-0" id="about">
             <div class="container">
-                <h2 class="page-section-heading text-center text-uppercase text-secondary">About Me</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary fw-bold">About Me</h2>
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-user"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center">
+                    <div class="col-lg-8 text-center">
                         <p class="lead format-rich-text">
-                            Hi! I'm Nathaël, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
+                            <!-- Le nom de famille apparaîtra ici après connexion avec une jolie couleur -->
+                            Hi! I'm Nathaël<span id="about-lastname" class="fw-bold text-primary"></span>, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
                         </p>
                     </div>
                 </div>
-                <div class="text-center mt-4">
-                    <a id="cv-button" class="btn btn-xl btn-outline-dark disabled" href="#!" style="pointer-events: none; opacity: 0.5;">
+                <div class="text-center mt-5">
+                    <a id="cv-button" class="btn btn-xl btn-outline-dark disabled rounded-pill" href="#!" style="pointer-events: none; opacity: 0.5;">
                         <i class="fas fa-lock me-2"></i> Download CV (Protected)
                     </a>
                 </div>
@@ -194,36 +214,43 @@
         <!-- Contact Section -->
         <section class="page-section bg-primary text-white" id="contact">
             <div class="container">
-                <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Contact Me</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-white mb-0 fw-bold">Contact Me</h2>
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-paper-plane"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <div class="contact-form-wrapper">
-                            <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+                        <div class="contact-form-wrapper position-relative">
+                            <!-- Petite décoration visuelle sur le formulaire -->
+                            <div class="position-absolute top-0 start-50 translate-middle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border: 5px solid #fff;">
+                                <i class="fas fa-envelope fa-lg"></i>
+                            </div>
+                            
+                            <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="mt-4">
                                 <input type="hidden" name="access_key" value="192d3153-5ce3-4036-a590-37312adb2240">
                                 <input type="hidden" name="redirect" value="https://nathdelbcn.github.io/">
                             
                                 <div class="form-floating mb-3 text-dark">
-                                    <input class="form-control rounded-4" id="name" name="name" type="text" placeholder="Enter your name..." required />
+                                    <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
                                     <label for="name">Full name</label>
                                 </div>
                                 <div class="form-floating mb-3 text-dark">
-                                    <input class="form-control rounded-4" id="email" name="email" type="email" placeholder="name@example.com" required />
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
                                     <label for="email">Email address</label>
                                 </div>
                                 <div class="form-floating mb-3 text-dark">
-                                    <input class="form-control rounded-4" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
+                                    <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
                                     <label for="phone">Phone number</label>
                                 </div>
                                 <div class="form-floating mb-4 text-dark">
-                                    <textarea class="form-control rounded-4" id="message" name="message" placeholder="Enter your message here..." style="height: 12rem" required></textarea>
+                                    <textarea class="form-control" id="message" name="message" placeholder="Enter your message here..." style="height: 12rem" required></textarea>
                                     <label for="message">Message</label>
                                 </div>
-                                <button class="btn btn-primary btn-xl w-100 shadow rounded-pill" id="submitButton" type="submit">Send Message</button>
+                                <button class="btn btn-primary btn-xl w-100 shadow" id="submitButton" type="submit">
+                                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -236,14 +263,14 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 mb-5 mb-md-0 px-4">
-                        <h4 class="text-uppercase mb-4">Location</h4>
+                        <h4 class="text-uppercase mb-4 fw-bold">Location</h4>
                         <p class="lead mb-0 format-rich-text" id="private-address">
-                            <i class="fas fa-shield-alt text-warning mb-2 fa-2x"></i><br/>
+                            <i class="fas fa-shield-alt text-warning mb-3 fa-2x"></i><br/>
                             <em>Location protected.<br/>Please login to unlock.</em>
                         </p>
                     </div>
                     <div class="col-md-6 px-4">
-                        <h4 class="text-uppercase mb-4">Website Protection</h4>
+                        <h4 class="text-uppercase mb-4 fw-bold">Website Protection</h4>
                         <p class="lead mb-0">
                             All original content, designs, and source code modifications on this website are strictly protected by copyright law. Unauthorized duplication is prohibited.
                         </p>
@@ -255,29 +282,33 @@
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white bg-dark">
             <div class="container">
-                <small>Copyright &copy; <span id="copyright-year"></span> Nathaël <span id="copy-lastname"></span>. All rights reserved.</small>
+                <small>Copyright &copy; <span id="copyright-year"></span> Nathaël<span id="copy-lastname"></span>. All rights reserved.</small>
             </div>
         </div>
         
         <!-- Modal de Connexion -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-secondary text-white border-0 shadow-lg">
+                <div class="modal-content bg-secondary text-white border-0 shadow-lg" style="border-radius: 1.5rem;">
                     <div class="modal-header border-bottom-0 pb-0">
                         <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center px-5 pb-5 pt-2">
-                        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                        <div class="bg-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-lock fa-2x text-warning"></i>
+                        </div>
                         <h4 class="modal-title text-uppercase fw-bold mb-3" id="loginModalLabel">Private Access</h4>
                         <p class="mb-4 text-light" style="font-size: 0.95rem;">Enter your private access code to unlock confidential details and assigned projects.</p>
                         
-                        <div class="form-floating mb-3 text-dark mx-auto" style="max-width: 300px;">
-                            <input type="password" class="form-control text-center fw-bold fs-5" id="accessCodeInput" placeholder="Enter code..." style="letter-spacing: 3px;" />
+                        <div class="form-floating mb-3 text-dark mx-auto" style="max-width: 320px;">
+                            <input type="password" class="form-control text-center fw-bold" id="accessCodeInput" placeholder="Enter code..." style="letter-spacing: 4px;" />
                             <label for="accessCodeInput" class="w-100 text-center">Access Code</label>
                         </div>
                         
-                        <div id="login-error" class="text-danger fw-bold mb-3" style="display: none;">Invalid access code!</div>
-                        <button type="button" id="submitLoginBtn" class="btn btn-primary btn-xl w-100 shadow rounded-pill" style="max-width: 300px;">Unlock Portfolio</button>
+                        <div id="login-error" class="text-danger fw-bold mb-3" style="display: none;"><i class="fas fa-exclamation-triangle me-1"></i> Invalid access code!</div>
+                        <button type="button" id="submitLoginBtn" class="btn btn-warning btn-xl w-100 shadow rounded-pill text-dark" style="max-width: 320px;">
+                            <i class="fas fa-unlock me-2"></i> Unlock Portfolio
+                        </button>
                     </div>
                 </div>
             </div>
@@ -286,17 +317,21 @@
         <!-- Modal Dynamique Portfolio -->
         <div class="portfolio-modal modal fade" id="dynamicPortfolioModal" tabindex="-1" aria-labelledby="dynamicPortfolioModal" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
+                <div class="modal-content" style="border-radius: 1.5rem; overflow: hidden; border: none;">
+                    <div class="modal-header border-0 pb-0 bg-light">
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" style="background-color: #fff; padding: 1rem; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; margin-right: 1rem;"></button>
+                    </div>
+                    <div class="modal-body text-center pb-5 bg-light">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0"></h2>
+                                <div class="col-lg-10">
+                                    <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0 fw-bold"></h2>
                                     <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
-                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-5 shadow" src="" alt="" />
-                                    <p id="modal-dynamic-text" class="mb-4 lead format-rich-text text-start"></p>
-                                    <button class="btn btn-primary btn-lg rounded-pill" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Close Window</button>
+                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-5 shadow-lg" src="" alt="" style="max-height: 60vh; object-fit: contain; background: #fff; padding: 10px;" />
+                                    <p id="modal-dynamic-text" class="mb-5 lead format-rich-text text-start px-md-5"></p>
+                                    <button class="btn btn-primary btn-xl rounded-pill shadow" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-fw me-2"></i> Close Window
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -309,15 +344,15 @@
         <script src="js/scripts.js"></script>
 
         <!-- Bannière Cookies -->
-        <div id="cookie-banner" class="cookie-banner" style="display: none;">
+        <div id="cookie-banner" class="cookie-banner" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: #2c3e50; color: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 90%; width: 400px; text-align: center;">
             <div class="cookie-content">
-                <p>🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide analytics.</p>
-                <div id="cookie-settings" class="mb-3 text-left" style="font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
-                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="consent-analytics" checked><label class="form-check-label text-white" for="consent-analytics">📊 Google Analytics</label></div>
+                <p class="mb-3">🍪 <strong>Privacy Preferences:</strong> We use cookies to analyze traffic and provide analytics.</p>
+                <div id="cookie-settings" class="mb-3 text-start" style="font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
+                    <div class="form-check m-0"><input class="form-check-input" type="checkbox" id="consent-analytics" checked><label class="form-check-label text-white fw-bold" for="consent-analytics">📊 Google Analytics</label></div>
                 </div>
-                <div class="cookie-buttons">
-                    <button id="save-settings" class="btn btn-outline-light btn-sm mr-2 text-white">Save Settings</button>
-                    <button id="accept-all" class="btn btn-light btn-sm text-dark font-weight-bold">Accept All</button>
+                <div class="cookie-buttons d-flex justify-content-center gap-2">
+                    <button id="save-settings" class="btn btn-outline-light btn-sm rounded-pill px-3">Save Settings</button>
+                    <button id="accept-all" class="btn btn-primary btn-sm rounded-pill px-4 fw-bold">Accept All</button>
                 </div>
             </div>
         </div>
@@ -369,7 +404,7 @@
 
                   if (!infoElement) return;
                   if (isVacations) {
-                      infoElement.textContent = `${schoolName} -- ${age} years old`;
+                      infoElement.textContent = `${schoolName} — ${age} years old`;
                       return; 
                   }
 
@@ -379,9 +414,9 @@
                   else if (schoolYearStart === 2026) classe = "4th Grade ESO";
                   else if (schoolYearStart === 2027) classe = "1st Year of BATXILLERAT";
                   else if (schoolYearStart === 2028) classe = "2nd Year of BATXILLERAT";
-                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student -- ${age} years old`; return; }
+                  else if (schoolYearStart > 2028) { infoElement.textContent = `Student — ${age} years old`; return; }
 
-                  infoElement.textContent = `${schoolName} -- ${age} years old -- ${classe}`;
+                  infoElement.textContent = `${schoolName} — ${age} years old — ${classe}`;
               }
 
               updateStudentInfo(); 
@@ -441,7 +476,7 @@
               // CRÉER LE MENU DÉROULANT DES CATÉGORIES (SANS LE #)
               function buildDropdown() {
                   const dropdown = document.getElementById("projectFilterDropdown");
-                  dropdown.innerHTML = `<option value="all">📂 All Categories / Filter</option>`;
+                  dropdown.innerHTML = `<option value="all">📂 All Categories</option>`;
                   
                   // Trier alphabétiquement
                   const sortedCategories = Array.from(availableCategories).sort();
@@ -508,7 +543,7 @@
                   });
 
                   if (filteredProjects.length === 0) {
-                      grid.innerHTML = `<div class="col-12 text-center py-5"><p class="alert alert-info fs-5"><i class="fas fa-info-circle me-2"></i>No projects match your search or filter criteria.</p></div>`;
+                      grid.innerHTML = `<div class="col-12 text-center py-5"><p class="alert alert-info fs-5" style="border-radius:1rem;"><i class="fas fa-info-circle me-2"></i>No projects match your search or filter criteria.</p></div>`;
                       paginationContainer.style.display = "none";
                       return;
                   }
@@ -528,7 +563,7 @@
                       
                       if (isAllowed) {
                           col.innerHTML = `
-                              <div class="portfolio-item mx-auto shadow rounded" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
+                              <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
                                    data-title="${proj.title}" data-img="${proj.img}" data-text="${encodeURIComponent(proj.text || '')}">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                       <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
@@ -536,18 +571,18 @@
                                           <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
                                       </div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${proj.img}" alt="${proj.title}" style="height: 250px; object-fit: cover;" />
+                                  <img class="img-fluid w-100" src="${proj.img}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
                               </div>`;
                       } else {
                           col.innerHTML = `
-                              <div class="portfolio-item mx-auto shadow rounded locked" title="You do not have permission to view this project">
+                              <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
                                       <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
                                           <i class="fas fa-lock fa-3x mb-3"></i>
                                           <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
                                       </div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${proj.img}" alt="Locked Project" style="height: 250px; object-fit: cover;" />
+                                  <img class="img-fluid w-100" src="${proj.img}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
                               </div>`;
                       }
                       grid.appendChild(col);
@@ -633,10 +668,10 @@
                               <div class="mb-4 skill-item-row" title="Click to filter projects by ${categoryName}">
                                   <div class="d-flex justify-content-between align-items-center mb-1">
                                       <span class="fw-bold fs-5"><i class="fas fa-check-circle text-primary me-2"></i>${s.name}</span>
-                                      <span class="badge bg-secondary">${s.experience || level + '%'}</span>
+                                      <span class="badge bg-secondary rounded-pill px-3">${s.experience || level + '%'}</span>
                                   </div>
                                   <div class="progress shadow-sm">
-                                      <div class="progress-bar" role="progressbar" style="width: ${level}%;" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
+                                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${level}%;" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
                                   </div>
                               </div>
                           `;
@@ -693,7 +728,7 @@
                       if (!codeValue) return;
                       
                       loginError.style.display = "none";
-                      submitLoginBtn.textContent = "⌛ Verifying...";
+                      submitLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Verifying...';
                       submitLoginBtn.disabled = true;
                       
                       fetch(APPS_SCRIPT_URL, {
@@ -702,7 +737,7 @@
                       })
                       .then(response => response.json())
                       .then(result => {
-                          submitLoginBtn.textContent = "Unlock Portfolio";
+                          submitLoginBtn.innerHTML = '<i class="fas fa-unlock me-2"></i> Unlock Portfolio';
                           submitLoginBtn.disabled = false;
                           
                           if (result.success) {
@@ -716,9 +751,17 @@
                               
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
-                                  document.getElementById("nav-lastname").textContent = result.data.lastName;
-                                  document.getElementById("private-lastname").textContent = result.data.lastName;
-                                  document.getElementById("copy-lastname").textContent = result.data.lastName;
+                                  
+                                  // Ajout du nom de famille UNIQUEMENT dans 'About Me' (Couleur Primary / Gras) et Footer
+                                  const aboutLastName = document.getElementById("about-lastname");
+                                  if(aboutLastName) {
+                                      aboutLastName.textContent = " " + result.data.lastName;
+                                  }
+                                  
+                                  const copyLastName = document.getElementById("copy-lastname");
+                                  if(copyLastName) {
+                                      copyLastName.textContent = " " + result.data.lastName;
+                                  }
                               }
                               
                               if (result.data.address) {
@@ -735,18 +778,19 @@
                               const cvButton = document.getElementById("cv-button");
                               if (cvButton) {
                                   if (result.canDownloadCV === true || result.canDownloadCV === "TRUE") {
-                                      cvButton.classList.remove("disabled");
+                                      cvButton.classList.remove("disabled", "btn-outline-dark");
+                                      cvButton.classList.add("btn-primary");
                                       cvButton.style.pointerEvents = "auto";
                                       cvButton.style.opacity = "1";
                                       cvButton.setAttribute("href", "assets/mon-cv.pdf");
-                                      cvButton.innerHTML = '<i class="fas fa-download me-2"></i> Download CV';
+                                      cvButton.innerHTML = '<i class="fas fa-download me-2"></i> Download Full CV';
                                   } else {
                                       cvButton.innerHTML = '<i class="fas fa-lock me-2"></i> CV Access Denied';
                                   }
                               }
                               
-                              loginTrigger.textContent = "🔓 Logout (" + result.userName + ")";
-                              loginTrigger.className = "nav-link py-3 px-0 px-lg-2 rounded text-danger fw-bold";
+                              loginTrigger.innerHTML = `<i class="fas fa-sign-out-alt me-1"></i> Logout (${result.userName})`;
+                              loginTrigger.className = "nav-link py-2 px-3 rounded-pill text-white bg-danger fw-bold shadow-sm";
                               loginTrigger.removeAttribute("data-bs-toggle");
                               loginTrigger.onclick = function() { location.reload(); };
                               accessCodeInput.value = "";
@@ -756,9 +800,9 @@
                       })
                       .catch(err => {
                           console.error(err);
-                          loginError.textContent = "Server error. Check connection.";
+                          loginError.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> Server error. Check connection.';
                           loginError.style.display = "block";
-                          submitLoginBtn.textContent = "Unlock Portfolio";
+                          submitLoginBtn.innerHTML = '<i class="fas fa-unlock me-2"></i> Unlock Portfolio';
                           submitLoginBtn.disabled = false;
                       });
                   });
