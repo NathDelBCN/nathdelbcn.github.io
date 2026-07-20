@@ -21,7 +21,6 @@
             /* --- PORTFOLIO HOVER & TEXT --- */
             .portfolio-item { transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 1rem; overflow: hidden; }
             .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; }
-            /* Vitesse de la croix ralentie à 1.2s comme demandé */
             .portfolio-item .fa-plus { transition: transform 1.2s ease-in-out; }
             .portfolio-item:hover .fa-plus { transform: rotate(180deg); }
             .portfolio-caption-text { font-weight: 800 !important; font-size: 1.1rem !important; letter-spacing: 1px; }
@@ -36,7 +35,7 @@
             .skill-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(26,188,156,0.15); border-color: #1abc9c; }
             .skill-card:hover .skill-category-title { color: #1abc9c; }
             .progress { height: 14px; border-radius: 7px; background-color: #e9ecef; overflow: visible; }
-            .progress-bar { background-color: #1abc9c; border-radius: 7px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+            .progress-bar { background-color: #1abc9c; border-radius: 7px; transition: width 1.8s cubic-bezier(0.1, 0.42, 0.2, 1) !important; position: relative; }
             .skill-category-title { color: #2c3e50; border-bottom: 3px solid #1abc9c; display: inline-block; padding-bottom: 8px; margin-bottom: 25px; transition: color 0.3s ease; }
             .skill-item-row { transition: background-color 0.2s; padding: 8px 12px; border-radius: 8px; margin-left: -12px; margin-right: -12px; }
             .skill-item-row:hover { background-color: #f8f9fa; }
@@ -116,7 +115,6 @@
                 width: 100% !important;
                 object-fit: cover;
             }
-
         </style>
     </head>
     <body id="page-top">
@@ -235,7 +233,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
                         <p class="lead format-rich-text">
-                            <!-- Le nom de famille apparaîtra ici après connexion avec une jolie couleur -->
+                            <!-- Le nom de famille apparaîtra ici après connexion SANS GRAS ET DE LA MEME COULEUR QUE LE TEXTE -->
                             Hi! I'm Nathaël<span id="about-lastname"></span>, a <span id="about-age">15</span>-year-old <span id="about-school-text">high school student</span> passionate about programming and web development. 
                             This portfolio showcases my personal projects, skills, and coding journey. 
                             Feel free to explore my work and contact me if you want to collaborate!
@@ -517,6 +515,8 @@
                   const menu = document.getElementById("customFilterMenu");
                   const btn = document.getElementById("dropdownFilterBtn");
                   
+                  if (!menu || !btn) return;
+                  
                   menu.innerHTML = `<li><a class="dropdown-item active" href="#!" data-value="all">📂 All Categories</a></li>`;
                   
                   const sortedCategories = Array.from(availableCategories).sort();
@@ -549,12 +549,6 @@
               function applyFilter(filterValue) {
                   currentFilterCategory = filterValue;
                   currentPage = 1; 
-
-                  const dropdown = document.getElementById("projectFilterDropdown");
-                  if (dropdown && dropdown.value !== filterValue) {
-                      dropdown.value = filterValue;
-                  }
-
                   renderProjectsGrid();
               }
 
@@ -608,45 +602,43 @@
 
                   // 3. Rendu des cartes de projets
                   paginatedProjects.forEach(proj => {
-                  const originalIndex = globalProjectsData.indexOf(proj);
-                  const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
+                      const originalIndex = globalProjectsData.indexOf(proj);
+                      const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
+                      
+                      // 1. On définit l'image par défaut si la case Google Sheet est vide
+                      const projectImage = (proj.img && proj.img.trim() !== "") 
+                          ? proj.img 
+                          : "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
                               
-                  // 1. On définit l'image par défaut si la case Google Sheet est vide
-                  const projectImage = (proj.img && proj.img.trim() !== "") 
-                      ? proj.img 
-                      : "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
-                              
-                  const col = document.createElement("div");
-                  col.className = "col-md-6 col-lg-4 mb-5";
-                              
-                  if (isAllowed) {
-                      col.innerHTML = `
-                          <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
-                               data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}">
-                              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                  <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                      <i class="fas fa-plus fa-3x mb-3"></i>
-                                      <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
+                      const col = document.createElement("div");
+                      col.className = "col-md-6 col-lg-4 mb-5";
+                      
+                      if (isAllowed) {
+                          col.innerHTML = `
+                              <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
+                                   data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}">
+                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                          <i class="fas fa-plus fa-3x mb-3"></i>
+                                          <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
+                                      </div>
                                   </div>
-                              </div>
-                              <!-- 2. On utilise projectImage ici à la place de proj.img -->
-                              <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
-                          </div>`;
-                  } else {
-                      col.innerHTML = `
-                          <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
-                              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
-                                  <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                      <i class="fas fa-lock fa-3x mb-3"></i>
-                                      <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
+                                  <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
+                              </div>`;
+                      } else {
+                          col.innerHTML = `
+                              <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
+                                  <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
+                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
+                                          <i class="fas fa-lock fa-3x mb-3"></i>
+                                          <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
+                                      </div>
                                   </div>
-                              </div>
-                              <!-- 2. On utilise projectImage ici aussi -->
-                              <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
-                          </div>`;
-                  }
-                  grid.appendChild(col);
-              });
+                                  <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
+                              </div>`;
+                      }
+                      grid.appendChild(col);
+                  });
 
                   // 4. Rendu de la barre de pagination
                   renderPaginationControls(totalPages);
@@ -724,14 +716,25 @@
                       let skillsHtml = "";
                       skillsList.forEach(s => {
                           const level = Math.min(Math.max(parseInt(s.level) || 50, 0), 100);
+                          
+                          // Détermination de l'icône selon le pourcentage
+                          let statusIcon = '';
+                          if (level < 25) {
+                              statusIcon = `<i class="fas fa-hourglass-start text-danger me-2" title="Starting soon"></i>`;
+                          } else if (level < 75) {
+                              statusIcon = `<i class="fas fa-spinner fa-spin-pulse text-warning me-2" title="In Progress"></i>`;
+                          } else {
+                              statusIcon = `<i class="fas fa-circle-check text-primary me-2" title="Mastered"></i>`;
+                          }
+
                           skillsHtml += `
                               <div class="mb-4 skill-item-row" title="Click to filter projects by ${categoryName}">
                                   <div class="d-flex justify-content-between align-items-center mb-1">
-                                      <span class="fw-bold fs-5"><i class="fas fa-check-circle text-primary me-2"></i>${s.name}</span>
+                                      <span class="fw-bold fs-5">${statusIcon}${s.name}</span>
                                       <span class="badge bg-secondary rounded-pill px-3">${s.experience || level + '%'}</span>
                                   </div>
                                   <div class="progress shadow-sm">
-                                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${level}%;" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
+                                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" data-level="${level}" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
                                   </div>
                               </div>
                           `;
@@ -744,14 +747,32 @@
                           </div>
                       `;
                       
-                      // Filtre via le nom propre de la catégorie (sans hashtag)
                       col.querySelector(".skill-card").addEventListener("click", function() {
                           applyFilter(categoryName.toLowerCase());
                           document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
+                          
+                          // Met à jour le bouton de filtre pour refléter le clic
+                          const filterBtn = document.getElementById("dropdownFilterBtn");
+                          if(filterBtn) filterBtn.innerHTML = `🏷️ ${categoryName}`;
                       });
 
                       container.appendChild(col);
                   }
+                  
+                  // Animation du remplissage des barres de compétences lorsqu'elles deviennent visibles
+                  const skillBars = document.querySelectorAll('#skills-container .progress-bar');
+                  const observer = new IntersectionObserver((entries) => {
+                      entries.forEach(entry => {
+                          if (entry.isIntersecting) {
+                              const bar = entry.target;
+                              const targetLevel = bar.getAttribute('data-level');
+                              bar.style.width = targetLevel + '%'; 
+                              observer.unobserve(bar); 
+                          }
+                      });
+                  }, { threshold: 0.2 });
+
+                  skillBars.forEach(bar => observer.observe(bar));
               }
 
               // MODALE DYNAMIQUE
@@ -772,7 +793,6 @@
               const loginError = document.getElementById("login-error");
               const loginTrigger = document.getElementById("login-trigger");
               
-              // Déclencher le bouton Login en appuyant sur "Enter" dans l'input
               if(accessCodeInput) {
                   accessCodeInput.addEventListener("keypress", function(event) {
                       if (event.key === "Enter") {
@@ -812,7 +832,6 @@
                               if (result.data.lastName) {
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
                                   
-                                  // Ajout du nom de famille UNIQUEMENT dans 'About Me' (Couleur Primary / Gras) et Footer
                                   const aboutLastName = document.getElementById("about-lastname");
                                   if(aboutLastName) {
                                       aboutLastName.textContent = " " + result.data.lastName;
