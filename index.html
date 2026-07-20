@@ -6,7 +6,7 @@
         <meta name="description" content="Personal portfolio of Nathaël, student and web developer." />
         <meta name="author" content="Nathaël" />
         <title id="page-title">Portfolio Nathaël</title>
-        <!-- Favicon par défaut, il sera écrasé par Google Sheets si image site est rempli -->
+        <!-- Favicon par défaut -->
         <link id="site-favicon" rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -19,7 +19,7 @@
             .lead { line-height: 1.8; font-size: 1.15rem; }
             
             /* --- PORTFOLIO HOVER & TEXT --- */
-            .portfolio-item { transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 1rem; overflow: hidden; }
+            .portfolio-item { transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 1rem; overflow: hidden; height: 280px !important; position: relative; background-color: #2c3e50; }
             .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; }
             .portfolio-item .fa-plus { transition: transform 1.2s ease-in-out; }
             .portfolio-item:hover .fa-plus { transform: rotate(180deg); }
@@ -29,6 +29,7 @@
             .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
             .portfolio-item .fa-lock { transition: transform 0.5s ease-in-out; }
             .portfolio-item:hover .fa-lock { transform: rotate(15deg) scale(1.1); }
+            .portfolio-item img { height: 100% !important; width: 100% !important; object-fit: cover; }
             
             /* --- STYLES SKILLS --- */
             .skill-card { background: #fff; border-radius: 1rem; padding: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 30px; transition: all 0.4s ease; border: 2px solid transparent; cursor: pointer; color: #2c3e50; }
@@ -47,9 +48,15 @@
             .search-box .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #adb5bd; font-size: 1.2rem; transition: color 0.3s; }
             .search-box input:focus + .search-icon { color: #1abc9c; }
             
-            .filter-dropdown-box { min-width: 240px; }
-            .filter-dropdown-box select { border-radius: 50px; border: 2px solid #2c3e50; background-color: #2c3e50; color: #fff; height: 55px; padding: 0 25px; font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>'); background-repeat: no-repeat; background-position: right 20px center; }
-            .filter-dropdown-box select:focus, .filter-dropdown-box select:hover { border-color: #1abc9c; background-color: #1abc9c; outline: none; box-shadow: 0 6px 12px rgba(26,188,156,0.3); }
+            .filter-dropdown-box { min-width: 260px; }
+            .dropdown-menu { max-height: 250px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1abc9c #2c3e50; }
+            .dropdown-menu::-webkit-scrollbar { width: 6px; }
+            .dropdown-menu::-webkit-scrollbar-track { background: #2c3e50; border-radius: 10px; }
+            .dropdown-menu::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 10px; }
+            
+            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; }
+            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item.active { background-color: #1abc9c; color: #fff; }
+            .dropdown-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1abc9c !important; font-weight: bold; margin-top: 5px; }
             
             /* --- STYLES PAGINATION --- */
             .pagination-btn { width: 50px; height: 50px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #2c3e50; background: #fff; color: #2c3e50; margin: 0 5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -64,7 +71,7 @@
             .navbar-nav .nav-link:hover { background-color: rgba(26, 188, 156, 0.1); color: #1abc9c !important; }
             #login-trigger:hover { background-color: rgba(243, 156, 18, 0.1); }
 
-            /* --- FORMULAIRES & BOUTONS PRO --- */
+            /* --- FORMULAIRES & BOUTONS --- */
             .contact-form-wrapper { background: #fff; padding: 3.5rem; border-radius: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05); }
             .form-floating input, .form-floating textarea { border-radius: 1rem !important; border: 2px solid #e9ecef; transition: all 0.3s; }
             .form-floating input:focus, .form-floating textarea:focus { border-color: #1abc9c; box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.1); }
@@ -73,47 +80,14 @@
             .btn-primary:hover { background-color: #128f76; border-color: #128f76; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(26,188,156,0.3) !important; }
             .btn-outline-dark:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; }
 
-            /* Login Input Rounded */
+            /* Login Input Rounded & Centered */
             #accessCodeInput { border-radius: 1rem; border: 2px solid #ced4da; transition: all 0.3s ease; height: 55px !important; }
             #accessCodeInput:focus { border-color: #f39c12; box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.15); }
-            
-            /* Centrage parfait du label Access Code */
-            .modal-body .form-floating > label {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                padding: 0 !important;
-                top: 0;
-            }
-            
-            /* Style personnalisé du menu déroulant déplié */
-            .dropdown-menu .dropdown-item {
-                color: #fff;
-                border-radius: 0.5rem;
-                padding: 10px 15px;
-                font-weight: 600;
-                transition: all 0.2s ease;
-            }
-            .dropdown-menu .dropdown-item:hover, 
-            .dropdown-menu .dropdown-item.active {
-                background-color: #1abc9c;
-                color: #fff;
-            }
-            
-            /* Hauteur fixe constante pour TOUS les blocs projets + fond de secours */
-            .portfolio-item {
-                height: 280px !important;
-                position: relative;
-                background-color: #2c3e50; /* Couleur sombre si pas d'image */
-            }
+            .modal-body .form-floating > label { display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 !important; top: 0; }
 
-            /* L'image s'adapte toujours à 100% du bloc */
-            .portfolio-item img {
-                height: 100% !important;
-                width: 100% !important;
-                object-fit: cover;
-            }
+            /* BADGES DE PARAMÈTRES DANS LA MODALE PROJET */
+            .modal-tech-badge { background-color: #e9ecef; color: #2c3e50; font-size: 0.85rem; font-weight: 700; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #ced4da; margin: 3px; }
+            .modal-tech-badge.category-badge { background-color: #1abc9c; color: #fff; border-color: #1abc9c; }
         </style>
     </head>
     <body id="page-top">
@@ -177,7 +151,7 @@
                             📂 All Categories
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu" style="border-radius: 1rem; background-color: #2c3e50; min-width: 100%;">
-                            <!-- Les options dynamiques seront injectées ici -->
+                            <!-- Généré dynamiquement en JS -->
                         </ul>
                     </div>
                 </div>
@@ -359,7 +333,11 @@
                                 <div class="col-lg-10">
                                     <h2 id="modal-dynamic-title" class="portfolio-modal-title text-secondary text-uppercase mb-0 fw-bold"></h2>
                                     <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
-                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-5 shadow-lg" src="" alt="" style="max-height: 60vh; object-fit: contain; background: #fff; padding: 10px;" />
+                                    <img id="modal-dynamic-img" class="img-fluid rounded mb-4 shadow-lg" src="" alt="" style="max-height: 55vh; object-fit: contain; background: #fff; padding: 10px;" />
+                                    
+                                    <!-- ZONE DES PARAMÈTRES / SKILLS / CATEGORIES DU PROJET -->
+                                    <div id="modal-dynamic-tags" class="d-flex flex-wrap justify-content-center gap-2 mb-4"></div>
+
                                     <p id="modal-dynamic-text" class="mb-5 lead format-rich-text text-start px-md-5"></p>
                                     <button class="btn btn-primary btn-xl rounded-pill shadow" data-bs-dismiss="modal">
                                         <i class="fas fa-xmark fa-fw me-2"></i> Close Window
@@ -397,16 +375,22 @@
           let globalSkillsData = [];
           let userAllowedProjects = null; 
           
-          // État pour les filtres et la pagination
           const ITEMS_PER_PAGE = 9;
           let currentPage = 1;
-          let currentFilterCategory = "all";
+          let currentFilter = "all";
           let currentSearchQuery = "";
-          let availableCategories = new Set();
+
+          let categorySet = new Set();
+          let skillSet = new Set();
 
           function formatSheetText(text) {
               if (!text) return "";
               return text.replace(/\\n|\n|\|/g, "<br/>");
+          }
+
+          // Nettoie un paramètre en enlevant le symbol #
+          function cleanParam(param) {
+              return param ? param.toString().trim().replace(/^#/, "") : "";
           }
 
           document.addEventListener("DOMContentLoaded", function() {
@@ -460,32 +444,39 @@
               Promise.all([fetchProjects, fetchSkills])
               .then(([projectsResult, skillsResult]) => {
                   
-                  // Traitement SKILLS (priorité pour construire les catégories)
+                  // 1. Traitement SKILLS
                   if (skillsResult.success && skillsResult.skills) {
                       globalSkillsData = skillsResult.skills;
                       renderSkills(globalSkillsData);
                       
-                      // Extraire les catégories de la table Skills
-                      globalSkillsData.forEach(skill => {
-                          if(skill.category) availableCategories.add(skill.category.trim());
+                      globalSkillsData.forEach(s => {
+                          if (s.category) categorySet.add(cleanParam(s.category));
+                          if (s.name) skillSet.add(cleanParam(s.name));
                       });
                   } else {
                       document.getElementById("skills-container").innerHTML = `<div class="col-12 text-center"><p class="alert alert-warning">No skills found.</p></div>`;
                   }
 
-                  // Traitement PROJETS
+                  // 2. Traitement PROJETS
                   if (projectsResult.success && projectsResult.projects) {
                       globalProjectsData = projectsResult.projects;
                       
-                      // Si des projets ont des hashtags qui ne sont pas dans skills, on les ajoute aussi (nettoyés du #)
                       globalProjectsData.forEach(proj => {
-                          if (proj.hashtag) {
-                              const tags = proj.hashtag.split(/\\n|\n|,|;/).map(t => t.trim().replace(/^#/, "")).filter(t => t !== "");
-                              tags.forEach(tag => availableCategories.add(tag));
+                          if (proj.category) {
+                              proj.category.split(/\\n|\n|,|;/).forEach(c => {
+                                  let cleanC = cleanParam(c);
+                                  if(cleanC) categorySet.add(cleanC);
+                              });
+                          }
+                          if (proj.skills) {
+                              proj.skills.split(/\\n|\n|,|;/).forEach(s => {
+                                  let cleanS = cleanParam(s);
+                                  if(cleanS) skillSet.add(cleanS);
+                              });
                           }
                       });
 
-                      buildDropdown();
+                      buildDropdownMenu();
                       renderProjectsGrid();
 
                       if (projectsResult.profileImage && projectsResult.profileImage.trim() !== "") {
@@ -505,33 +496,42 @@
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Loading error. Check connection.</p>`;
               });
 
-              // CRÉER LE MENU DÉROULANT DES CATÉGORIES (SANS LE #)
-              function buildDropdown() {
+              // CRÉER LE MENU DÉROULANT DES SÉLECTIONS (VOIR MAXIMUM 4 ET DÉFILANT POUR LE RESTE)
+              function buildDropdownMenu() {
                   const menu = document.getElementById("customFilterMenu");
                   const btn = document.getElementById("dropdownFilterBtn");
                   
                   if (!menu || !btn) return;
                   
-                  menu.innerHTML = `<li><a class="dropdown-item active" href="#!" data-value="all">📂 All Categories</a></li>`;
+                  let html = `<li><a class="dropdown-item active" href="#!" data-value="all">📂 All Categories / Skills</a></li>`;
                   
-                  const sortedCategories = Array.from(availableCategories).sort();
-                  
-                  sortedCategories.forEach(cat => {
-                      const li = document.createElement("li");
-                      li.innerHTML = `<a class="dropdown-item" href="#!" data-value="${cat.toLowerCase()}">🏷️ ${cat}</a>`;
-                      menu.appendChild(li);
-                  });
+                  const sortedCategories = Array.from(categorySet).sort();
+                  const sortedSkills = Array.from(skillSet).sort();
+
+                  if (sortedCategories.length > 0) {
+                      html += `<li><hr class="dropdown-divider bg-light"></li>`;
+                      html += `<li><h6 class="dropdown-header">Categories</h6></li>`;
+                      sortedCategories.forEach(cat => {
+                          html += `<li><a class="dropdown-item" href="#!" data-value="${cat.toLowerCase()}">📂 ${cat}</a></li>`;
+                      });
+                  }
+
+                  if (sortedSkills.length > 0) {
+                      html += `<li><hr class="dropdown-divider bg-light"></li>`;
+                      html += `<li><h6 class="dropdown-header">Specific Skills</h6></li>`;
+                      sortedSkills.forEach(sk => {
+                          html += `<li><a class="dropdown-item" href="#!" data-value="${sk.toLowerCase()}">⚡ ${sk}</a></li>`;
+                      });
+                  }
+
+                  menu.innerHTML = html;
               
-                  // Écouteur de clic sur les options du menu
                   menu.querySelectorAll(".dropdown-item").forEach(item => {
                       item.addEventListener("click", function(e) {
                           e.preventDefault();
                           const val = this.getAttribute("data-value");
                           
-                          // Mise à jour du texte du bouton principal
                           btn.innerHTML = this.innerHTML;
-                          
-                          // Gestion de la classe active
                           menu.querySelectorAll(".dropdown-item").forEach(i => i.classList.remove("active"));
                           this.classList.add("active");
                           
@@ -542,7 +542,7 @@
 
               // APPLICATION DU FILTRE
               function applyFilter(filterValue) {
-                  currentFilterCategory = filterValue;
+                  currentFilter = filterValue;
                   currentPage = 1; 
                   renderProjectsGrid();
               }
@@ -567,20 +567,20 @@
                   const filteredProjects = globalProjectsData.filter((proj, index) => {
                       const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[index] === true);
                       
-                      // Vérification du filtre Catégorie (sans le #)
-                      let matchesCategory = true;
-                      if (currentFilterCategory !== "all") {
-                          const projTags = proj.hashtag ? proj.hashtag.toLowerCase().split(/\\n|\n|,|;/).map(t => t.trim().replace(/^#/, "")) : [];
-                          matchesCategory = projTags.includes(currentFilterCategory);
+                      let matchesFilter = true;
+                      if (currentFilter !== "all") {
+                          const projCat = proj.category ? proj.category.toLowerCase().split(/\\n|\n|,|;/).map(c => cleanParam(c).toLowerCase()) : [];
+                          const projSkills = proj.skills ? proj.skills.toLowerCase().split(/\\n|\n|,|;/).map(s => cleanParam(s).toLowerCase()) : [];
+                          
+                          matchesFilter = projCat.includes(currentFilter) || projSkills.includes(currentFilter);
                       }
 
-                      // Vérification de la barre de recherche (UNIQUEMENT SUR PROJECT_NAME)
                       let matchesSearch = true;
                       if (currentSearchQuery !== "") {
                           matchesSearch = proj.title && proj.title.toLowerCase().includes(currentSearchQuery);
                       }
 
-                      return matchesCategory && matchesSearch;
+                      return matchesFilter && matchesSearch;
                   });
 
                   if (filteredProjects.length === 0) {
@@ -600,7 +600,6 @@
                       const originalIndex = globalProjectsData.indexOf(proj);
                       const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[originalIndex] === true);
                       
-                      // 1. On définit l'image par défaut si la case Google Sheet est vide
                       const projectImage = (proj.img && proj.img.trim() !== "") 
                           ? proj.img 
                           : "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
@@ -611,14 +610,15 @@
                       if (isAllowed) {
                           col.innerHTML = `
                               <div class="portfolio-item mx-auto shadow-sm" data-bs-toggle="modal" data-bs-target="#dynamicPortfolioModal"
-                                   data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}">
+                                   data-title="${proj.title}" data-img="${projectImage}" data-text="${encodeURIComponent(proj.text || '')}"
+                                   data-category="${encodeURIComponent(proj.category || '')}" data-skills="${encodeURIComponent(proj.skills || '')}">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                       <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
                                           <i class="fas fa-plus fa-3x mb-3"></i>
                                           <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
                                       </div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" style="height: 280px; object-fit: cover;" />
+                                  <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" />
                               </div>`;
                       } else {
                           col.innerHTML = `
@@ -629,17 +629,15 @@
                                           <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
                                       </div>
                                   </div>
-                                  <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" style="height: 280px; object-fit: cover;" />
+                                  <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" />
                               </div>`;
                       }
                       grid.appendChild(col);
                   });
 
-                  // 4. Rendu de la barre de pagination
                   renderPaginationControls(totalPages);
               }
 
-              // RENDU DE LA BARRE DE PAGINATION
               function renderPaginationControls(totalPages) {
                   const paginationContainer = document.getElementById("portfolio-pagination");
                   paginationContainer.innerHTML = "";
@@ -692,7 +690,7 @@
                   paginationContainer.appendChild(nextBtn);
               }
 
-              // --- 3. FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS) ---
+              // FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS)
               function renderSkills(skills) {
                   const container = document.getElementById("skills-container");
                   container.innerHTML = ""; 
@@ -712,7 +710,6 @@
                       skillsList.forEach(s => {
                           const level = Math.min(Math.max(parseInt(s.level) || 50, 0), 100);
                           
-                          // Détermination de l'icône selon le pourcentage
                           let statusIcon = '';
                           if (level < 25) {
                               statusIcon = `<i class="fas fa-hourglass-start text-danger me-2" title="Starting soon"></i>`;
@@ -743,18 +740,17 @@
                       `;
                       
                       col.querySelector(".skill-card").addEventListener("click", function() {
-                          applyFilter(categoryName.toLowerCase());
+                          let cleanCat = cleanParam(categoryName).toLowerCase();
+                          applyFilter(cleanCat);
                           document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
                           
-                          // Met à jour le bouton de filtre pour refléter le clic
                           const filterBtn = document.getElementById("dropdownFilterBtn");
-                          if(filterBtn) filterBtn.innerHTML = `🏷️ ${categoryName}`;
+                          if(filterBtn) filterBtn.innerHTML = `📂 ${cleanParam(categoryName)}`;
                       });
 
                       container.appendChild(col);
                   }
                   
-                  // Animation du remplissage des barres de compétences lorsqu'elles deviennent visibles
                   const skillBars = document.querySelectorAll('#skills-container .progress-bar');
                   const observer = new IntersectionObserver((entries) => {
                       entries.forEach(entry => {
@@ -770,15 +766,40 @@
                   skillBars.forEach(bar => observer.observe(bar));
               }
 
-              // MODALE DYNAMIQUE
+              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS EN BAS
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
                       const trigger = event.relatedTarget;
                       document.getElementById('modal-dynamic-title').textContent = trigger.getAttribute('data-title');
                       document.getElementById('modal-dynamic-img').setAttribute('src', trigger.getAttribute('data-img'));
+                      
                       const rawText = decodeURIComponent(trigger.getAttribute('data-text') || '');
                       document.getElementById('modal-dynamic-text').innerHTML = formatSheetText(rawText);
+
+                      // Affichage des tags Category et Skill en dessous du projet
+                      const rawCat = decodeURIComponent(trigger.getAttribute('data-category') || '');
+                      const rawSk = decodeURIComponent(trigger.getAttribute('data-skills') || '');
+                      const tagsContainer = document.getElementById('modal-dynamic-tags');
+                      tagsContainer.innerHTML = '';
+
+                      if (rawCat) {
+                          rawCat.split(/\\n|\n|,|;/).forEach(c => {
+                              let cleanC = cleanParam(c);
+                              if (cleanC) {
+                                  tagsContainer.innerHTML += `<span class="modal-tech-badge category-badge"><i class="fas fa-folder"></i> ${cleanC}</span>`;
+                              }
+                          });
+                      }
+
+                      if (rawSk) {
+                          rawSk.split(/\\n|\n|,|;/).forEach(s => {
+                              let cleanS = cleanParam(s);
+                              if (cleanS) {
+                                  tagsContainer.innerHTML += `<span class="modal-tech-badge"><i class="fas fa-bolt"></i> ${cleanS}</span>`;
+                              }
+                          });
+                      }
                   });
               }
 
