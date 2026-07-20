@@ -39,12 +39,11 @@
             .progress { height: 14px; border-radius: 7px; background-color: #e9ecef; overflow: visible; }
             .progress-bar { background-color: #1abc9c; border-radius: 7px; transition: width 1.8s cubic-bezier(0.1, 0.42, 0.2, 1) !important; position: relative; }
             
-            /* Ligne individuelle de compétence : cliquable pour filtrer le skill précis */
             .skill-item-row { padding: 8px 12px; border-radius: 8px; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; }
             .skill-item-row:hover { background-color: #f8f9fa; border-color: #1abc9c; transform: translateX(5px); }
             
-            /* --- STYLES RECHERCHE & FILTRES (RESPONSIVE MOBILE) --- */
-            .search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; max-width: 850px; margin: 0 auto 50px auto; width: 100%; }
+            /* --- STYLES RECHERCHE & FILTRES --- */
+            .search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; max-width: 850px; margin: 0 auto 20px auto; width: 100%; }
             .search-box { flex: 1; min-width: 260px; position: relative; width: 100%; }
             .search-box input { border-radius: 50px; padding-left: 50px; border: 2px solid #e9ecef; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.3s; height: 55px; font-size: 1.05rem; width: 100%; }
             .search-box input:focus { border-color: #1abc9c; box-shadow: 0 0 15px rgba(26,188,156,0.15); outline: none; }
@@ -52,18 +51,20 @@
             .search-box input:focus + .search-icon { color: #1abc9c; }
             
             .filter-dropdown-box { min-width: 260px; width: 100%; flex: 1; }
-            @media (min-width: 768px) {
-                .filter-dropdown-box { width: auto; }
-            }
+            @media (min-width: 768px) { .filter-dropdown-box { width: auto; } }
             
             .dropdown-menu { max-height: 280px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1abc9c #2c3e50; }
             .dropdown-menu::-webkit-scrollbar { width: 6px; }
             .dropdown-menu::-webkit-scrollbar-track { background: #2c3e50; border-radius: 10px; }
             .dropdown-menu::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 10px; }
             
-            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; }
+            .dropdown-menu .dropdown-item { color: #fff; border-radius: 0.5rem; padding: 10px 15px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
             .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item.active { background-color: #1abc9c; color: #fff; }
             .dropdown-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1abc9c !important; font-weight: bold; margin-top: 5px; }
+            
+            /* --- BADGES FILTRES ACTIFS --- */
+            .active-filter-badge { background-color: #1abc9c; color: white; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            .active-filter-badge:hover { background-color: #e74c3c; transform: scale(1.05); }
             
             /* --- STYLES PAGINATION --- */
             .pagination-btn { width: 45px; height: 45px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #2c3e50; background: #fff; color: #2c3e50; margin: 0 4px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -71,28 +72,22 @@
             .pagination-btn.active { background: #2c3e50; border-color: #2c3e50; color: #fff; transform: scale(1.1); }
             .pagination-btn.disabled { opacity: 0.4; cursor: not-allowed; border-color: #ced4da; color: #6c757d; box-shadow: none; }
             
-            /* --- NAVBAR ADAPTATIONS POUR MOBILES ET DESKTOP --- */
+            /* --- NAVBAR ADAPTATIONS --- */
             .navbar-brand { font-size: 1.15rem !important; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.3s; }
-            @media (min-width: 992px) {
-                .navbar-brand { font-size: 1.3rem !important; }
-            }
+            @media (min-width: 992px) { .navbar-brand { font-size: 1.3rem !important; } }
             .navbar-brand:hover { color: #1abc9c !important; }
             .navbar-nav .nav-link { padding-left: 0.8rem !important; padding-right: 0.8rem !important; font-size: 0.95rem !important; white-space: nowrap; border-radius: 0.5rem; transition: background-color 0.3s, color 0.3s; }
             .navbar-nav .nav-link:hover { background-color: rgba(26, 188, 156, 0.1); color: #1abc9c !important; }
             #login-trigger:hover { background-color: rgba(243, 156, 18, 0.1); }
 
-            /* --- FORMULAIRES & BOUTONS MOBILES/DESKTOP --- */
+            /* --- FORMULAIRES & BOUTONS --- */
             .contact-form-wrapper { background: #fff; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05); }
-            @media (min-width: 768px) {
-                .contact-form-wrapper { padding: 3.5rem; }
-            }
+            @media (min-width: 768px) { .contact-form-wrapper { padding: 3.5rem; } }
             .form-floating input, .form-floating textarea { border-radius: 1rem !important; border: 2px solid #e9ecef; transition: all 0.3s; }
             .form-floating input:focus, .form-floating textarea:focus { border-color: #1abc9c; box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.1); }
             .form-floating label { color: #858796; font-weight: 500; }
             .btn-xl { padding: 1.25rem 2rem; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.3s; border-radius: 50px !important; }
-            @media (min-width: 768px) {
-                .btn-xl { padding: 1.25rem 2.5rem; font-size: 1.15rem; }
-            }
+            @media (min-width: 768px) { .btn-xl { padding: 1.25rem 2.5rem; font-size: 1.15rem; } }
             .btn-primary:hover { background-color: #128f76; border-color: #128f76; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(26,188,156,0.3) !important; }
             .btn-outline-dark:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; }
 
@@ -164,14 +159,18 @@
                         <i class="fas fa-search search-icon"></i>
                     </div>
                     <div class="filter-dropdown-box dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50;">
-                            📂 All Categories
+                        <!-- data-bs-auto-close="outside" permet de cliquer plusieurs fois sans que ça se ferme -->
+                        <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm d-flex justify-content-between align-items-center" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50; padding: 0 25px;">
+                            <span>📂 Filter Projects</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2" id="customFilterMenu" style="border-radius: 1rem; background-color: #2c3e50; min-width: 100%;">
                             <!-- Généré dynamiquement en JS -->
                         </ul>
                     </div>
                 </div>
+
+                <!-- Zone d'affichage des filtres (Tags) sélectionnés -->
+                <div id="active-filters-container" class="d-flex flex-wrap justify-content-center gap-2 mb-5 w-100"></div>
                 
                 <!-- Grille des projets -->
                 <div class="row justify-content-center" id="portfolio-grid">
@@ -394,7 +393,9 @@
           
           const ITEMS_PER_PAGE = 9;
           let currentPage = 1;
-          let currentFilter = "all";
+          
+          // Nouveau système : set des filtres actifs
+          let currentFilters = new Set();
           let currentSearchQuery = "";
 
           let categorySet = new Set();
@@ -405,7 +406,6 @@
               return text.replace(/\\n|\n|\|/g, "<br/>");
           }
 
-          // Nettoie un paramètre en enlevant le symbol #
           function cleanParam(param) {
               return param ? param.toString().trim().replace(/^#/, "") : "";
           }
@@ -454,7 +454,6 @@
 
               updateStudentInfo(); 
 
-              // Lancement des requêtes simultanées
               const fetchProjects = fetch(APPS_SCRIPT_URL, { method: "POST", body: JSON.stringify({ action: "loadProjects" }) }).then(res => res.json());
               const fetchSkills = fetch(APPS_SCRIPT_URL, { method: "POST", body: JSON.stringify({ action: "loadSkills" }) }).then(res => res.json());
 
@@ -471,7 +470,6 @@
                   if (projectsResult.success && projectsResult.projects) {
                       globalProjectsData = projectsResult.projects;
                       
-                      // RÈGLE UNIQUE : ON AFFICHE DANS LE DROPDOWN SEULEMENT LES CATÉGORIES ET SKILLS VRAIMENT UTILISÉS DANS LES PROJETS
                       categorySet.clear();
                       skillSet.clear();
 
@@ -510,14 +508,12 @@
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Loading error. Check connection.</p>`;
               });
 
-              // CRÉER LE MENU DÉROULANT DU FILTRE PORTFOLIO
+              // CRÉER LE MENU DÉROULANT DES SÉLECTIONS
               function buildDropdownMenu() {
                   const menu = document.getElementById("customFilterMenu");
-                  const btn = document.getElementById("dropdownFilterBtn");
+                  if (!menu) return;
                   
-                  if (!menu || !btn) return;
-                  
-                  let html = `<li><a class="dropdown-item active" href="#!" data-value="all">📂 All Categories / Skills</a></li>`;
+                  let html = `<li><a class="dropdown-item active" href="#!" data-value="all"><i class="fas fa-times-circle me-2"></i> Clear Filters</a></li>`;
                   
                   const sortedCategories = Array.from(categorySet).sort();
                   const sortedSkills = Array.from(skillSet).sort();
@@ -526,7 +522,12 @@
                       html += `<li><hr class="dropdown-divider bg-light"></li>`;
                       html += `<li><h6 class="dropdown-header">Categories Used</h6></li>`;
                       sortedCategories.forEach(cat => {
-                          html += `<li><a class="dropdown-item" href="#!" data-value="${cat.toLowerCase()}">📂 ${cat}</a></li>`;
+                          html += `<li><a class="dropdown-item" href="#!" data-value="${cat.toLowerCase()}">
+                                      <div class="d-flex align-items-center justify-content-between w-100">
+                                          <span>📂 ${cat}</span>
+                                          <i class="fas fa-check check-icon" style="opacity:0;"></i>
+                                      </div>
+                                   </a></li>`;
                       });
                   }
 
@@ -534,7 +535,12 @@
                       html += `<li><hr class="dropdown-divider bg-light"></li>`;
                       html += `<li><h6 class="dropdown-header">Skills Used</h6></li>`;
                       sortedSkills.forEach(sk => {
-                          html += `<li><a class="dropdown-item" href="#!" data-value="${sk.toLowerCase()}">⚡ ${sk}</a></li>`;
+                          html += `<li><a class="dropdown-item" href="#!" data-value="${sk.toLowerCase()}">
+                                      <div class="d-flex align-items-center justify-content-between w-100">
+                                          <span>⚡ ${sk}</span>
+                                          <i class="fas fa-check check-icon" style="opacity:0;"></i>
+                                      </div>
+                                   </a></li>`;
                       });
                   }
 
@@ -544,22 +550,82 @@
                       item.addEventListener("click", function(e) {
                           e.preventDefault();
                           const val = this.getAttribute("data-value");
-                          
-                          btn.innerHTML = this.innerHTML;
-                          menu.querySelectorAll(".dropdown-item").forEach(i => i.classList.remove("active"));
-                          this.classList.add("active");
-                          
                           applyFilter(val);
                       });
                   });
               }
 
-              function applyFilter(filterValue) {
-                  currentFilter = filterValue;
+              // GESTION DU FILTRAGE MULTIPLE
+              window.applyFilter = function(filterValue) {
+                  if (filterValue === "all") {
+                      currentFilters.clear();
+                  } else {
+                      if (currentFilters.has(filterValue)) {
+                          currentFilters.delete(filterValue);
+                      } else {
+                          currentFilters.add(filterValue);
+                      }
+                  }
                   currentPage = 1; 
+                  updateFilterUI();
                   renderProjectsGrid();
+              };
+
+              function updateFilterUI() {
+                  const menu = document.getElementById("customFilterMenu");
+                  const btn = document.getElementById("dropdownFilterBtn");
+                  const activeContainer = document.getElementById("active-filters-container");
+                  
+                  // 1. Mettre à jour les classes dans le menu déroulant
+                  if (menu) {
+                      menu.querySelectorAll(".dropdown-item").forEach(item => {
+                          const val = item.getAttribute("data-value");
+                          const checkIcon = item.querySelector(".check-icon");
+                          
+                          if (val === "all") {
+                              if (currentFilters.size === 0) item.classList.add("active");
+                              else item.classList.remove("active");
+                          } else {
+                              if (currentFilters.has(val)) {
+                                  item.classList.add("active");
+                                  if (checkIcon) checkIcon.style.opacity = "1";
+                              } else {
+                                  item.classList.remove("active");
+                                  if (checkIcon) checkIcon.style.opacity = "0";
+                              }
+                          }
+                      });
+                  }
+                  
+                  // 2. Mettre à jour le texte du bouton principal
+                  if (btn) {
+                      if (currentFilters.size === 0) {
+                          btn.innerHTML = `<span>📂 Filter Projects</span>`;
+                      } else if (currentFilters.size === 1) {
+                          btn.innerHTML = `<span>🏷️ 1 Filter Active</span>`;
+                      } else {
+                          btn.innerHTML = `<span>🏷️ ${currentFilters.size} Filters Active</span>`;
+                      }
+                  }
+                  
+                  // 3. Dessiner les badges "Chips" au-dessus de la grille
+                  if (activeContainer) {
+                      activeContainer.innerHTML = "";
+                      currentFilters.forEach(f => {
+                          // Retrouver le vrai nom avec la majuscule depuis nos Set
+                          let realName = Array.from(categorySet).find(c => c.toLowerCase() === f) || 
+                                         Array.from(skillSet).find(s => s.toLowerCase() === f) || f;
+                                         
+                          activeContainer.innerHTML += `
+                              <span class="active-filter-badge" onclick="applyFilter('${f}')" title="Remove filter">
+                                  ${realName} <i class="fas fa-times ms-1"></i>
+                              </span>
+                          `;
+                      });
+                  }
               }
 
+              // EVENT RECHERCHE EN TEMPS RÉEL
               const searchInput = document.getElementById("projectSearchInput");
               if (searchInput) {
                   searchInput.addEventListener("input", function() {
@@ -569,6 +635,7 @@
                   });
               }
 
+              // FONCTION PRINCIPALE D'AFFICHAGE ET PAGINATION DE LA GRILLE
               function renderProjectsGrid() {
                   const grid = document.getElementById("portfolio-grid");
                   const paginationContainer = document.getElementById("portfolio-pagination");
@@ -578,11 +645,13 @@
                       const isAllowed = proj.isPublic || (userAllowedProjects !== null && userAllowedProjects[index] === true);
                       
                       let matchesFilter = true;
-                      if (currentFilter !== "all") {
+                      if (currentFilters.size > 0) {
                           const projCat = proj.category ? proj.category.toLowerCase().split(/\\n|\n|,|;/).map(c => cleanParam(c).toLowerCase()) : [];
                           const projSkills = proj.skills ? proj.skills.toLowerCase().split(/\\n|\n|,|;/).map(s => cleanParam(s).toLowerCase()) : [];
+                          const allProjTags = [...projCat, ...projSkills];
                           
-                          matchesFilter = projCat.includes(currentFilter) || projSkills.includes(currentFilter);
+                          // OU logique : Le projet s'affiche s'il possède AU MOINS UN des tags sélectionnés
+                          matchesFilter = Array.from(currentFilters).some(f => allProjTags.includes(f));
                       }
 
                       let matchesSearch = true;
@@ -594,7 +663,7 @@
                   });
 
                   if (filteredProjects.length === 0) {
-                      grid.innerHTML = `<div class="col-12 text-center py-5"><p class="alert alert-info fs-5" style="border-radius:1rem;"><i class="fas fa-info-circle me-2"></i>No projects match your search or filter criteria.</p></div>`;
+                      grid.innerHTML = `<div class="col-12 text-center py-5"><p class="alert alert-info fs-5 shadow-sm" style="border-radius:1rem;"><i class="fas fa-info-circle me-2"></i>No projects match your search or filter criteria.</p></div>`;
                       paginationContainer.style.display = "none";
                       return;
                   }
@@ -698,7 +767,7 @@
                   paginationContainer.appendChild(nextBtn);
               }
 
-              // FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS) AVEC DOUBLE INTERACTION (CATÉGORIE OU SKILL SEUL)
+              // FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS)
               function renderSkills(skills) {
                   const container = document.getElementById("skills-container");
                   container.innerHTML = ""; 
@@ -727,9 +796,8 @@
                               statusIcon = `<i class="fas fa-circle-check text-primary me-2" title="Mastered"></i>`;
                           }
 
-                          // Chaque ligne possède un dataset spécifique pour filtrer SEULEMENT ce skill
                           skillsHtml += `
-                              <div class="mb-4 skill-item-row" data-skill-name="${cleanParam(s.name)}" title="Click to filter ONLY projects with skill: ${s.name}">
+                              <div class="mb-4 skill-item-row" data-skill-name="${cleanParam(s.name)}" title="Add ${s.name} to filters">
                                   <div class="d-flex justify-content-between align-items-center mb-1">
                                       <span class="fw-bold fs-5">${statusIcon}${s.name}</span>
                                       <span class="badge bg-secondary rounded-pill px-3">${s.experience || level + '%'}</span>
@@ -743,34 +811,24 @@
 
                       col.innerHTML = `
                           <div class="skill-card h-100">
-                              <h4 class="skill-category-title text-uppercase fw-bold" data-category-name="${cleanParam(categoryName)}" title="Click to filter ALL projects in category: ${categoryName}">
+                              <h4 class="skill-category-title text-uppercase fw-bold" data-category-name="${cleanParam(categoryName)}" title="Add ${categoryName} to filters">
                                   <i class="fas fa-layer-group me-2"></i>${categoryName}
                               </h4>
                               ${skillsHtml}
                           </div>
                       `;
                       
-                      // 1. Clic sur le Titre de la Catégorie : Filtre la Category complète
                       col.querySelector(".skill-category-title").addEventListener("click", function(e) {
                           e.stopPropagation();
-                          let cleanCat = this.getAttribute("data-category-name").toLowerCase();
-                          applyFilter(cleanCat);
+                          applyFilter(this.getAttribute("data-category-name").toLowerCase());
                           document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
-                          
-                          const filterBtn = document.getElementById("dropdownFilterBtn");
-                          if(filterBtn) filterBtn.innerHTML = `📂 ${cleanParam(categoryName)}`;
                       });
 
-                      // 2. Clic sur une ligne de Skill précis : Filtre uniquement ce Skill
                       col.querySelectorAll(".skill-item-row").forEach(row => {
                           row.addEventListener("click", function(e) {
                               e.stopPropagation();
-                              let skillName = this.getAttribute("data-skill-name");
-                              applyFilter(skillName.toLowerCase());
+                              applyFilter(this.getAttribute("data-skill-name").toLowerCase());
                               document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
-                              
-                              const filterBtn = document.getElementById("dropdownFilterBtn");
-                              if(filterBtn) filterBtn.innerHTML = `⚡ ${skillName}`;
                           });
                       });
 
@@ -812,7 +870,7 @@
                           rawCat.split(/\\n|\n|,|;/).forEach(c => {
                               let cleanC = cleanParam(c);
                               if (cleanC) {
-                                  tagsContainer.innerHTML += `<span class="modal-tech-badge category-badge" onclick="filterFromModal('${cleanC.toLowerCase()}', '📂 ${cleanC}')"><i class="fas fa-folder"></i> ${cleanC}</span>`;
+                                  tagsContainer.innerHTML += `<span class="modal-tech-badge category-badge" onclick="filterFromModal('${cleanC.toLowerCase()}')" title="Add to filters"><i class="fas fa-folder"></i> ${cleanC}</span>`;
                               }
                           });
                       }
@@ -821,24 +879,24 @@
                           rawSk.split(/\\n|\n|,|;/).forEach(s => {
                               let cleanS = cleanParam(s);
                               if (cleanS) {
-                                  tagsContainer.innerHTML += `<span class="modal-tech-badge" onclick="filterFromModal('${cleanS.toLowerCase()}', '⚡ ${cleanS}')"><i class="fas fa-bolt"></i> ${cleanS}</span>`;
+                                  tagsContainer.innerHTML += `<span class="modal-tech-badge" onclick="filterFromModal('${cleanS.toLowerCase()}')" title="Add to filters"><i class="fas fa-bolt"></i> ${cleanS}</span>`;
                               }
                           });
                       }
                   });
               }
 
-              // Fonction pour filtrer directement quand on clique sur une puce dans la modale
-              window.filterFromModal = function(filterVal, label) {
+              // Fonction pour basculer un filtre depuis la modale et la fermer
+              window.filterFromModal = function(filterVal) {
                   const modalEl = document.getElementById('dynamicPortfolioModal');
                   const modalInstance = bootstrap.Modal.getInstance(modalEl);
                   if (modalInstance) modalInstance.hide();
                   
-                  applyFilter(filterVal);
+                  // On s'assure d'ajouter le filtre (s'il n'y est pas) au lieu de juste le toggler (effacer) par erreur
+                  if (!currentFilters.has(filterVal)) {
+                      applyFilter(filterVal);
+                  }
                   document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
-                  
-                  const filterBtn = document.getElementById("dropdownFilterBtn");
-                  if(filterBtn) filterBtn.innerHTML = label;
               };
 
               // GESTION DU LOGIN
@@ -988,4 +1046,4 @@
           });
         </script>
     </body>
-</html>changement de recherhc
+</html>
