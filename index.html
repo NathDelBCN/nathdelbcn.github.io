@@ -785,10 +785,10 @@
                           if (/^(https?:\/\/|data:image|\.\/|\/)/i.test(imgValue)) {
                               projectImage = imgValue;
                           } else {
-                              projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(imgValue);
+                              projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(imgValue) + "&font=Montserrat";
                           }
                       } else {
-                          projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title);
+                          projectImage = "https://placehold.co/600x400/2c3e50/ffffff?text=" + encodeURIComponent(proj.title) + "&font=Montserrat";
                       }
                               
                       const col = document.createElement("div");
