@@ -23,7 +23,20 @@
             .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; }
             .portfolio-item .fa-plus { transition: transform 1.2s ease-in-out; }
             .portfolio-item:hover .fa-plus { transform: rotate(180deg); }
-            .portfolio-caption-text { font-weight: 800 !important; font-size: 1.1rem !important; letter-spacing: 1px; }
+            
+            /* Cadre blanc semi-transparent pour le texte au survol */
+            .portfolio-caption-wrapper {
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 1.2rem;
+                border-radius: 0.8rem;
+                width: 85%;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+                transition: transform 0.3s ease;
+            }
+            .portfolio-item:hover .portfolio-caption-wrapper {
+                transform: scale(1.05);
+            }
+            .portfolio-caption-text { font-weight: 800 !important; font-size: 1.1rem !important; letter-spacing: 1px; color: #2c3e50 !important; }
             
             .portfolio-item.locked { filter: grayscale(100%); opacity: 0.7; cursor: not-allowed; }
             .portfolio-item.locked .portfolio-item-caption { background-color: rgba(231, 76, 60, 0.9) !important; }
@@ -236,6 +249,7 @@
                         <i class="fas fa-search search-icon"></i>
                     </div>
                     <div class="filter-dropdown-box dropdown">
+                        <!-- data-bs-auto-close="outside" permet de cliquer plusieurs fois sans que ça se ferme -->
                         <button class="btn btn-secondary dropdown-toggle rounded-pill w-100 fw-bold shadow-sm d-flex justify-content-between align-items-center" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="height: 55px; background-color: #2c3e50; border: 2px solid #2c3e50; padding: 0 25px;">
                             <span>📂 Filter Projects</span>
                         </button>
@@ -510,6 +524,7 @@
 
                   const isVacations = (currentMonth === 6 && currentDay >= 20) || (currentMonth === 7) || (currentMonth === 8);
                   
+                  // Text variables handling default vs specific school
                   let schoolTextForAbout = "";
                   let schoolTextForHeader = "";
                   
@@ -602,6 +617,7 @@
                   document.getElementById("portfolio-grid").innerHTML = `<p class="text-muted">Loading error. Check connection.</p>`;
               });
 
+              // CRÉER LE MENU DÉROULANT DES SÉLECTIONS
               function buildDropdownMenu() {
                   const menu = document.getElementById("customFilterMenu");
                   if (!menu) return;
@@ -648,9 +664,10 @@
                       });
                   });
 
-                  updateFilterUI();
+                  updateFilterUI(); // Initial check
               }
 
+              // GESTION DU FILTRAGE MULTIPLE
               window.applyFilter = function(filterValue) {
                   if (filterValue === "all") {
                       currentFilters.clear();
@@ -711,6 +728,7 @@
                   }
               }
 
+              // EVENT RECHERCHE EN TEMPS RÉEL
               const searchInput = document.getElementById("projectSearchInput");
               if (searchInput) {
                   searchInput.addEventListener("input", function() {
@@ -720,6 +738,7 @@
                   });
               }
 
+              // FONCTION PRINCIPALE D'AFFICHAGE ET PAGINATION DE LA GRILLE
               function renderProjectsGrid() {
                   const grid = document.getElementById("portfolio-grid");
                   const paginationContainer = document.getElementById("portfolio-pagination");
@@ -782,9 +801,9 @@
                                    data-category="${encodeURIComponent(proj.category || '')}" data-skills="${encodeURIComponent(proj.skills || '')}"
                                    data-links="${encodeURIComponent(proj.links || '')}">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                          <i class="fas fa-plus fa-3x mb-3"></i>
-                                          <div class="text-uppercase text-white format-rich-text portfolio-caption-text">${formatSheetText(proj.preview) || 'View Project'}</div>
+                                      <div class="portfolio-item-caption-content text-center d-flex flex-column align-items-center portfolio-caption-wrapper">
+                                          <i class="fas fa-plus fa-2x mb-2 text-primary"></i>
+                                          <div class="text-uppercase format-rich-text portfolio-caption-text text-secondary">${formatSheetText(proj.preview) || 'View Project'}</div>
                                       </div>
                                   </div>
                                   <img class="img-fluid w-100" src="${projectImage}" alt="${proj.title}" />
@@ -793,9 +812,9 @@
                           col.innerHTML = `
                               <div class="portfolio-item mx-auto shadow-sm locked" title="You do not have permission to view this project">
                                   <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100" style="opacity: 1;">
-                                      <div class="portfolio-item-caption-content text-center text-white d-flex flex-column align-items-center">
-                                          <i class="fas fa-lock fa-3x mb-3"></i>
-                                          <div class="text-uppercase text-white portfolio-caption-text">Access Restricted</div>
+                                      <div class="portfolio-item-caption-content text-center d-flex flex-column align-items-center portfolio-caption-wrapper">
+                                          <i class="fas fa-lock fa-2x mb-2 text-danger"></i>
+                                          <div class="text-uppercase format-rich-text portfolio-caption-text text-secondary">Access Restricted</div>
                                       </div>
                                   </div>
                                   <img class="img-fluid w-100" src="${projectImage}" alt="Locked Project" />
@@ -859,6 +878,7 @@
                   paginationContainer.appendChild(nextBtn);
               }
 
+              // FONCTION D'AFFICHAGE DES COMPÉTENCES (SKILLS)
               function renderSkills(skills) {
                   const container = document.getElementById("skills-container");
                   container.innerHTML = ""; 
@@ -943,6 +963,7 @@
                   skillBars.forEach(bar => observer.observe(bar));
               }
 
+              // MODALE DYNAMIQUE AVEC INJECTION DES TAGS ET LIENS
               const dynamicModal = document.getElementById('dynamicPortfolioModal');
               if (dynamicModal) {
                   dynamicModal.addEventListener('show.bs.modal', function (event) {
@@ -953,6 +974,7 @@
                       const rawText = decodeURIComponent(trigger.getAttribute('data-text') || '');
                       document.getElementById('modal-dynamic-text').innerHTML = formatSheetText(rawText);
 
+                      // 1. GESTION DES TAGS (Catégories et Compétences)
                       const rawCat = decodeURIComponent(trigger.getAttribute('data-category') || '');
                       const rawSk = decodeURIComponent(trigger.getAttribute('data-skills') || '');
                       const tagsContainer = document.getElementById('modal-dynamic-tags');
@@ -976,6 +998,7 @@
                           });
                       }
                       
+                      // 2. GESTION DES LIENS DE CODE SOURCE (Nouvelle Fonctionnalité)
                       const rawLinks = decodeURIComponent(trigger.getAttribute('data-links') || '');
                       const linksContainer = document.getElementById('modal-dynamic-links');
                       linksContainer.innerHTML = '';
@@ -987,6 +1010,8 @@
                                   const url = parts[0].trim();
                                   const text = parts[1].trim();
                                   if (url && text) {
+                                      // Utilisation de l'attribut download et du style professionnel
+                                      // On tente d'extraire le nom du fichier depuis l'URL
                                       const fileName = url.split('/').pop() || 'download';
                                       linksContainer.innerHTML += `<a href="${url}" download="${fileName}" target="_blank" class="source-code-btn rounded-pill fw-bold shadow-sm mx-2 my-1"><i class="fas fa-download me-2"></i> ${text}</a>`;
                                   }
@@ -996,17 +1021,20 @@
                   });
               }
 
+              // Fonction pour basculer un filtre depuis la modale et la fermer
               window.filterFromModal = function(filterVal) {
                   const modalEl = document.getElementById('dynamicPortfolioModal');
                   const modalInstance = bootstrap.Modal.getInstance(modalEl);
                   if (modalInstance) modalInstance.hide();
                   
+                  // On s'assure d'ajouter le filtre (s'il n'y est pas) au lieu de juste le toggler (effacer) par erreur
                   if (!currentFilters.has(filterVal)) {
                       applyFilter(filterVal);
                   }
                   document.getElementById("portfolio").scrollIntoView({ behavior: 'smooth' });
               };
 
+              // GESTION DU LOGIN
               const submitLoginBtn = document.getElementById("submitLoginBtn");
               const accessCodeInput = document.getElementById("accessCodeInput");
               const loginError = document.getElementById("login-error");
@@ -1049,6 +1077,7 @@
                               }
                               
                               if (result.data.lastName) {
+                                  // Update the page title and footer ONLY
                                   document.title = "Portfolio Nathaël " + result.data.lastName;
                                   
                                   const copyLastName = document.getElementById("copy-lastname");
