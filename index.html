@@ -1040,11 +1040,24 @@
               const loginError = document.getElementById("login-error");
               const loginTrigger = document.getElementById("login-trigger");
               
-              if(accessCodeInput) {
+              // Fonction pour soumettre le login
+              function attemptLogin() {
+                  submitLoginBtn.click();
+              }
+
+              if (accessCodeInput && submitLoginBtn) {
+                  // Gère l'appui sur la touche "Entrée"
                   accessCodeInput.addEventListener("keypress", function(event) {
                       if (event.key === "Enter") {
                           event.preventDefault();
-                          submitLoginBtn.click();
+                          attemptLogin();
+                      }
+                  });
+
+                  // Gère la saisie pour une soumission automatique à 8 caractères
+                  accessCodeInput.addEventListener("input", function() {
+                      if (this.value.length === 8) {
+                          attemptLogin();
                       }
                   });
               }
@@ -1077,10 +1090,6 @@
                               }
                               
                               if (result.data.lastName) {
-                                  // Update the page title and footer ONLY
-                                  document.title = "Portfolio Nathaël " + result.data.lastName;
-                                  
-                                  const copyLastName = document.getElementById("copy-lastname");
                                   if(copyLastName) {
                                       copyLastName.textContent = " " + result.data.lastName;
                                   }
