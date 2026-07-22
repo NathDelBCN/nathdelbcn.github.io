@@ -1089,14 +1089,15 @@
                                   document.getElementById("profile-avatar").setAttribute("src", result.profileImage);
                               }
                               
-                              if (result.data.lastName) {
-                                  if(copyLastName) {
-                                      copyLastName.textContent = " " + result.data.lastName;
-                                  }
-                                  
+                              if (result.data.lastName) {                                  
                                   const aboutLastName = document.getElementById("about-lastname");
                                   if(aboutLastName) {
                                       aboutLastName.textContent = " " + result.data.lastName;
+                                  }
+                                  
+                                  const copyLastName = document.getElementById("copy-lastname");
+                                  if(copyLastName) {
+                                      copyLastName.textContent = " " + result.data.lastName;
                                   }
                               }
                               
